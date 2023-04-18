@@ -46,7 +46,44 @@ const validateSpot = [
   ];
 
 
+router.get('/current', requireAuth, async (req, res) => {
+  const spots = await Spot.findAll({
+    include: [
+      {model: Review},
+      {model: SpotImage}
+    ],
+    where: {
+      id: req.user.dataValues.id
+    }
+  })
 
+  let Spots = [];
+
+  spots.forEach(spot => {
+    Spots.push(spot.toJSON())
+  })
+
+  Spots.forEach(spot => {
+    let sum = 0
+    for(let i = 0; i < spot.Reviews.length; i++) {
+      sum += spot.Reviews[i].stars
+    }
+    spot.avgRating = sum / spot.Reviews.length
+    delete spot.Reviews
+  })
+
+  Spots.forEach(spot => {
+    spot.SpotImages.forEach(image => {
+      spot.previewImage = image.url
+    })
+    delete spot.SpotImages
+  })
+
+  res.json({
+      Spots
+    })
+
+})
 
 //getting a spot by id
 router.get('/:id', async (req, res) => {
@@ -217,20 +254,44 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 })
 
 
-//getting all spots, NOT DONE YET
+//getting all spots
 router.get('/', async (req, res) => {
 
-    const Spots = await Spot.findAll({
-        include: {
-            model: Review,
-            attributes: ['stars']
-        }
+  const spots = await Spot.findAll({
+    include: [
+      {model: Review},
+      {model: SpotImage}
+    ]
+  })
+
+  let Spots = [];
+
+  spots.forEach(spot => {
+    Spots.push(spot.toJSON())
+  })
+
+  Spots.forEach(spot => {
+    let sum = 0
+    for(let i = 0; i < spot.Reviews.length; i++) {
+      sum += spot.Reviews[i].stars
+    }
+    spot.avgRating = sum / spot.Reviews.length
+    delete spot.Reviews
+  })
+
+  Spots.forEach(spot => {
+    spot.SpotImages.forEach(image => {
+      spot.previewImage = image.url
+    })
+    delete spot.SpotImages
+  })
+
+  res.json({
+      Spots
     })
 
-    res.json({
-        Spots
-    })
-})
+
+  })
 
 
 module.exports = router;
