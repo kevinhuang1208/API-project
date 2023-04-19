@@ -128,5 +128,55 @@ router.put('/:id', requireAuth, async (req, res) => {
 
 })
 
+    //deleting a spot
+router.delete('/:id', requireAuth, async (req, res) => {
+    const booking = await Booking.findByPk(req.params.id)
+
+    const spot = await Spot.findByPk(booking.spotId)
+
+    if(!booking) {
+      res.status(404)
+      return res.json({
+        message: "Booking couldn't be found"
+      })
+    }
+
+    // console.log(booking.dataValues.userId)
+    // console.log(req.user.dataValues.id)
+    // console.log(spot.ownerId)
+
+    if((booking.dataValues.userId === req.user.dataValues.id) || (spot.ownerId === req.user.dataValues.id)) {
+
+        const currentDate = new Date()
+        let currentTime = currentDate.getTime()
+        let bookingsStartDate = booking.startDate
+        let bookingsEndDate = booking.endDate
+        let bookingsStartDateString = new Date(bookingsStartDate)
+        let bookingsEndDateString = new Date    (bookingsEndDate)
+        let bookingsStartTime = bookingsStartDateString.getTime()
+        let bookingsEndTime = bookingsEndDateString.getTime()
+
+        if((currentTime < bookingsEndTime) && (currentTime > bookingsStartTime)) {
+            res.status(403)
+            return res.json({
+                message: "Past bookings can't be modified"
+            })
+        }
+
+        if(booking) {
+        await booking.destroy()
+            res.json({
+                message: "Successfully deleted"
+        })
+        }
+    }
+    else {
+        res.status(403)
+        return res.json({
+            message: 'Forbidden'
+        })
+    }
+  })
+
 
 module.exports = router;
