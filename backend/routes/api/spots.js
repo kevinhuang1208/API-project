@@ -316,6 +316,81 @@ router.post('/:id/reviews', requireAuth, validateReview, async (req, res) => {
   res.json(newReview)
 })
 
+//creating a booking from a spot based on spotid
+router.post('/:id/bookings', requireAuth, async (req, res) => {
+  const spot = await Spot.findByPk(req.params.id)
+
+  const bookings = await Booking.findAll({
+    where: {
+      spotId: req.params.id
+    }
+  })
+
+  const {startDate, endDate} = req.body
+
+  const theStart = new Date(startDate)
+  const theEnd = new Date(endDate)
+  const theStartTime = theStart.getTime()
+  const theEndTime = theEnd.getTime()
+
+
+  if(!spot) {
+    res.status(404)
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+
+  if(spot.dataValues.ownerId === req.user.dataValues.id) {
+    res.status(403)
+    return res.json({
+      message: 'You cannot book your own spot!'
+    })
+  }
+
+  if(theEndTime <= theStartTime) {
+    res.status(400)
+    return res.json({
+      message: "Bad request",
+      errors: {
+        endDate: "endDate cannot be on or before startDate"
+      }
+    })
+  }
+
+  for(let i = 0; i < bookings.length; i++) {
+    let eachBooking = bookings[i]
+    let startDate = new Date(eachBooking.startDate)
+    let endDate = new Date(eachBooking.endDate)
+    let startDateTime = startDate.getTime()
+    let endDateTime = endDate.getTime()
+
+    if((startDateTime >= theStartTime && startDateTime <= theEndTime) || (endDateTime >= theStartTime && endDateTime <= theEndTime)) {
+      res.status(403)
+      return res.json({
+        message: "Sorry, this spot is already booked for the specified dates",
+        errors: {
+          startDate: "Start date conflicts with an existing booking",
+          endDate: "End date conflicts with an exists booking"
+        }
+      })
+    }
+  }
+
+  const newBooking = await Booking.create({
+    userId: req.user.dataValues.id,
+    spotId: spot.id,
+    startDate,
+    endDate
+  })
+
+  res.json(newBooking)
+
+
+})
+
+
 //adding an image to a Spot based on Spot's id
 router.post('/:id/images', requireAuth, async (req, res) => {
     const idd = req.params.id
