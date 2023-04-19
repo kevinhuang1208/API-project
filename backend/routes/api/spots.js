@@ -4,7 +4,7 @@ const express = require('express');
 
 const { setTokenCookie, requireAuth } = require('../../utils/auth');
 
-const { Spot, Review, SpotImage, User } = require('../../db/models');
+const { Spot, Review, SpotImage, User, ReviewImage } = require('../../db/models');
 
 const router = express.Router();
 
@@ -42,6 +42,17 @@ const validateSpot = [
     check('price')
       .exists({checkFalsy: true})
       .withMessage('Price per day is required'),
+    handleValidationErrors
+  ];
+
+  const validateReview = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .withMessage('Review text is required'),
+    check('stars')
+    .isNumeric()
+    .isIn([1, 2, 3, 4, 5])
+    .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
   ];
 
@@ -84,6 +95,32 @@ router.get('/current', requireAuth, async (req, res) => {
     })
 
 })
+
+//get all reviews by spot id
+router.get('/:id/reviews', async (req, res) => {
+  const id = req.params.id
+  const spot = await Spot.findByPk(id)
+  const Reviews = await Review.findAll({
+    include: [
+      {model: User, attributes: {exclude: ['username', 'hashedPassword', 'email', 'createdAt', 'updatedAt']}},
+      {model: ReviewImage, attributes: {exclude: ['reviewId', 'createdAt', 'updatedAt']}}
+    ],
+    where: {
+      spotId: id
+    }
+  })
+
+  if(!spot) {
+    res.status(404)
+    return res.json({
+        message: "Spot couldn't be found"
+    })
+} else {
+
+  return res.json({Reviews})
+  }
+})
+
 
 //getting a spot by id
 router.get('/:id', async (req, res) => {
@@ -153,11 +190,13 @@ router.put('/:id', requireAuth, validateSpot, async (req, res) => {
   const spot = await Spot.findByPk(req.params.id)
 
   if(!spot) {
+    res.status(404)
     return res.json({
       message: "Spot couldn't be found"
     })
   }
   if(spot.dataValues.ownerId !== req.user.dataValues.id) {
+    res.status(403)
     return res.json({
       message: 'Forbidden'
     })
@@ -182,12 +221,14 @@ router.delete('/:id', requireAuth, async (req, res) => {
   const spot = await Spot.findByPk(req.params.id)
 
   if(!spot) {
+    res.status(404)
     return res.json({
       message: "Spot couldn't be found"
     })
   }
 
   if(spot.dataValues.ownerId !== req.user.dataValues.id) {
+    res.status(403)
     return res.json({
       message: 'Forbidden'
     })
@@ -198,6 +239,44 @@ router.delete('/:id', requireAuth, async (req, res) => {
       message: "Successfully deleted"
     })
   }
+})
+
+//creating a review for a spot based on the spot's id
+router.post('/:id/reviews', requireAuth, validateReview, async (req, res) => {
+  // const id = req.params.id
+  const spot = await Spot.findByPk(req.params.id)
+  const reviews = await Review.findAll({
+    where: {
+      spotId: req.params.id,
+      userId: req.user.dataValues.id
+    }
+  })
+
+  const {review, stars} = req.body
+
+
+  if(!spot) {
+    res.status(404)
+    return res.json({
+      message: "Spot couldn't be found"
+    })
+  }
+
+  if(reviews[0]) {
+    res.status(500)
+    return res.json({
+      message: "User already has a review for this spot"
+    })
+  }
+
+  const newReview = await Review.create({
+    userId: req.user.dataValues.id,
+    spotId: spot.id,
+    review,
+    stars
+  })
+
+  res.json(newReview)
 })
 
 //adding an image to a Spot based on Spot's id
@@ -211,15 +290,17 @@ router.post('/:id/images', requireAuth, async (req, res) => {
       url,
       preview,
       spotId: spot.dataValues.id
-    })
+    }, {fields: ['id', 'url', 'preview']})
 
     if(spot.dataValues.ownerId !== req.user.dataValues.id) {
+      res.status(403)
       return res.json({
         message: 'Forbidden'
       })
     }
 
     if(!spot) {
+      res.status(404)
       return res.json({
         message: "Spot couldn't be found"
       })
