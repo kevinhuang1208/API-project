@@ -11,7 +11,16 @@ const router = express.Router();
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 
-
+const validateReview = [
+    check('review')
+      .exists({ checkFalsy: true })
+      .withMessage('Review text is required'),
+    check('stars')
+    .isNumeric()
+    .isIn([1, 2, 3, 4, 5])
+    .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+  ];
 
 //get all reviews of current user
 router.get('/current', requireAuth, async (req, res) => {
@@ -87,5 +96,31 @@ router.post('/:id/images', requireAuth, async (req, res) => {
     res.json(image)
 })
 
+
+//editting a review
+router.put('/:id', requireAuth, validateReview, async (req, res) => {
+    const { review, stars } = req.body
+
+    const reviewToEdit = await Review.findByPk(req.params.id)
+
+    if(!reviewToEdit) {
+      res.status(404)
+      return res.json({
+        message: "Spot couldn't be found"
+      })
+    }
+    if(reviewToEdit.dataValues.userId !== req.user.dataValues.id) {
+      res.status(403)
+      return res.json({
+        message: 'Forbidden'
+      })
+    }
+
+    if(review) reviewToEdit.review = review
+    if(stars)  reviewToEdit.stars = stars
+
+    await reviewToEdit.save()
+    res.json(reviewToEdit)
+  })
 
 module.exports = router;
