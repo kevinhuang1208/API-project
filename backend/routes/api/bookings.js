@@ -47,44 +47,59 @@ router.put('/:id', requireAuth, async (req, res) => {
 
     const { startDate, endDate } = req.body
 
+    const bookingToEdit = await Booking.findByPk(req.params.id)
+
     const bookings = await Booking.findAll({
         where: {
-          userId: req.user.dataValues.id
+            spotId: bookingToEdit.spotId
         }
       })
 
-    console.log(bookings)
 
     const theStart = new Date(startDate)
     const theEnd = new Date(endDate)
     const theStartTime = theStart.getTime()
     const theEndTime = theEnd.getTime()
 
-    const bookingToEdit = await Booking.findByPk(req.params.id)
 
     if(!bookingToEdit) {
-      res.status(404)
-      return res.json({
-        message: "Booking couldn't be found"
-      })
+        res.status(404)
+        return res.json({
+            message: "Booking couldn't be found"
+        })
     }
 
+
     if(bookingToEdit.dataValues.userId !== req.user.dataValues.id) {
-      res.status(403)
-      return res.json({
-        message: 'Forbidden'
-      })
+        res.status(403)
+        return res.json({
+            message: 'Forbidden'
+        })
     }
 
     if(theEndTime <= theStartTime) {
         res.status(400)
         return res.json({
-          message: "Bad request",
-          errors: {
-            endDate: "endDate cannot be on or before startDate"
-          }
+            message: "Bad request",
+            errors: {
+                endDate: "endDate cannot be on or before startDate"
+            }
         })
-      }
+    }
+
+    const currentDate = new Date()
+    let currentTime = currentDate.getTime()
+    let bookingsEndDate = bookingToEdit.endDate
+    let bookingsEndDateString = new Date(bookingsEndDate)
+    let bookingsEndTime = bookingsEndDateString.getTime()
+
+    if(bookingsEndTime < currentTime) {
+        res.status(403)
+        return res.json({
+            message: "Past bookings can't be modified"
+        })
+    }
+
 
     for(let i = 0; i < bookings.length; i++) {
         let eachBooking = bookings[i]
