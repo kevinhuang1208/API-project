@@ -190,11 +190,13 @@ router.put('/:id', requireAuth, validateSpot, async (req, res) => {
   const spot = await Spot.findByPk(req.params.id)
 
   if(!spot) {
+    res.status(404)
     return res.json({
       message: "Spot couldn't be found"
     })
   }
   if(spot.dataValues.ownerId !== req.user.dataValues.id) {
+    res.status(403)
     return res.json({
       message: 'Forbidden'
     })
@@ -219,12 +221,14 @@ router.delete('/:id', requireAuth, async (req, res) => {
   const spot = await Spot.findByPk(req.params.id)
 
   if(!spot) {
+    res.status(404)
     return res.json({
       message: "Spot couldn't be found"
     })
   }
 
   if(spot.dataValues.ownerId !== req.user.dataValues.id) {
+    res.status(403)
     return res.json({
       message: 'Forbidden'
     })
@@ -286,9 +290,10 @@ router.post('/:id/images', requireAuth, async (req, res) => {
       url,
       preview,
       spotId: spot.dataValues.id
-    })
+    }, {fields: ['id', 'url', 'preview']})
 
     if(spot.dataValues.ownerId !== req.user.dataValues.id) {
+      res.status(403)
       return res.json({
         message: 'Forbidden'
       })
