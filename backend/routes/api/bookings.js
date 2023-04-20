@@ -150,13 +150,13 @@ router.delete('/:id', requireAuth, async (req, res) => {
         const currentDate = new Date()
         let currentTime = currentDate.getTime()
         let bookingsStartDate = booking.startDate
-        let bookingsEndDate = booking.endDate
         let bookingsStartDateString = new Date(bookingsStartDate)
-        let bookingsEndDateString = new Date    (bookingsEndDate)
         let bookingsStartTime = bookingsStartDateString.getTime()
-        let bookingsEndTime = bookingsEndDateString.getTime()
+        // let bookingsEndDate = booking.endDate
+        // let bookingsEndDateString = new Date    (bookingsEndDate)
+        // let bookingsEndTime = bookingsEndDateString.getTime()
 
-        if((currentTime < bookingsEndTime) && (currentTime > bookingsStartTime)) {
+        if((currentTime > bookingsStartTime)) {
             res.status(403)
             return res.json({
                 message: "Past bookings can't be modified"
