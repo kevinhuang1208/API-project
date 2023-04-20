@@ -128,11 +128,9 @@ router.put('/:id', requireAuth, async (req, res) => {
 
 })
 
-    //deleting a spot
+    //deleting a booking
 router.delete('/:id', requireAuth, async (req, res) => {
     const booking = await Booking.findByPk(req.params.id)
-
-    const spot = await Spot.findByPk(booking.spotId)
 
     if(!booking) {
       res.status(404)
@@ -140,6 +138,9 @@ router.delete('/:id', requireAuth, async (req, res) => {
         message: "Booking couldn't be found"
       })
     }
+
+    const spot = await Spot.findByPk(booking.spotId)
+
 
     // console.log(booking.dataValues.userId)
     // console.log(req.user.dataValues.id)
