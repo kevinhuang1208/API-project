@@ -12,6 +12,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { UniqueConstraintError } = require('sequelize');
 const spot = require('../../db/models/spot');
+const { Op } = require('sequelize');
 
 const validateSpot = [
     check('address')
@@ -53,6 +54,16 @@ const validateSpot = [
     .isNumeric()
     .isIn([1, 2, 3, 4, 5])
     .withMessage('Stars must be an integer from 1 to 5'),
+    handleValidationErrors
+  ];
+
+  const validateQuery = [
+    check('page')
+      .isInt({gt: 0})
+      .withMessage('Page must be greater than or equal to 1'),
+    check('size')
+      .isInt({gt: 0})
+      .withMessage('Page must be greater than or equal to 1'),
     handleValidationErrors
   ];
 
@@ -450,11 +461,138 @@ router.post('/', requireAuth, validateSpot, async (req, res) => {
 //getting all spots
 router.get('/', async (req, res) => {
 
+  let { page, size } = req.query
+
+  if(!page) page = 1
+  if(!size) size = 20
+
+  page = parseInt(page);
+  size = parseInt(size);
+
+  if(page < 1) {
+    res.status(400)
+    return res.json({
+      message: "Bad Request",
+      errors: {
+        page: "Page must be greater than or equal to 1"
+      }
+    })
+  }
+  if(size < 1) {
+    res.status(400)
+    return res.json({
+     message: "Bad Request",
+     errors: {
+        size: "Page must be greater than or equal to 1"
+      }
+    })
+  }
+
+  if(page > 10) page = 10;
+  if(size > 20) size = 20;
+
+  const pagination = {};
+    if (page >= 1 && size >= 1) {
+        pagination.limit = size;
+        pagination.offset = size * (page - 1);
+      }
+
+  let where = {};
+
+  if(req.query.minLat && (isNaN(parseInt(req.query.minLat)))) {
+    res.status(400)
+    return res.json({
+      message: "Bad Request",
+      errors: {
+        minLat: "Minimum latitude is invalid"
+      }
+    })
+  }
+
+  if(req.query.maxLat && (isNaN(parseInt(req.query.maxLat)))) {
+    res.status(400)
+    return res.json({
+      message: "Bad Request",
+      errors: {
+        maxLat: "Maximum latitude is invalid"
+      }
+    })
+  }
+
+  if(req.query.minLng && (isNaN(parseInt(req.query.minLng)))) {
+    res.status(400)
+    return res.json({
+      message: "Bad Request",
+      errors: {
+        minLng: "Minimum longitude is invalid"
+      }
+    })
+  }
+
+  if(req.query.maxLng && (isNaN(parseInt(req.query.maxLng)))) {
+    res.status(400)
+    return res.json({
+      message: "Bad Request",
+      errors: {
+        maxLng: "Maximum longitude is invalid"
+      }
+    })
+  }
+
+  if(req.query.minPrice && req.query.minPrice < 0) {
+    res.status(400)
+    return res.json({
+      message: "Bad Request",
+      errors: {
+        minPrice: "Minimum price must be greater than or equal to 0"
+      }
+    })
+  }
+
+  if(req.query.maxPrice && req.query.maxPrice < 0) {
+    res.status(400)
+    return res.json({
+      message: "Bad Request",
+      errors: {
+        minPrice: "Maximum price must be greater than or equal to 0"
+      }
+    })
+  }
+
+  if (req.query.minLat) {
+    where.lat = req.query.minLat;
+    where.lat = { [Op.gte]: `${req.query.minLat}`}
+  }
+  if (req.query.maxLat) {
+    where.lat = req.query.maxLat;
+    where.lat = { [Op.lte]: `${req.query.maxLat}`}
+  }
+  if (req.query.minLng) {
+    where.lng = req.query.minLng;
+    where.lng = { [Op.gte]: `${req.query.minLng}`}
+  }
+  if (req.query.maxLng) {
+    where.lng = req.query.maxLng;
+    where.lng = { [Op.lte]: `${req.query.maxLng}`}
+  }
+  if (req.query.minPrice && (req.query.minPrice >= 0)) {
+    where.price = req.query.minPrice;
+    where.price = { [Op.gte]: `${req.query.minPrice}`}
+  }
+  if (req.query.maxPrice && (req.query.maxPrice >= 0)) {
+    where.price = req.query.maxPrice;
+    where.price = { [Op.lte]: `${req.query.maxPrice}`}
+  }
+
+
+
   const spots = await Spot.findAll({
     include: [
       {model: Review},
       {model: SpotImage}
-    ]
+    ],
+    where,
+    ...pagination
   })
 
   let Spots = [];
@@ -480,7 +618,9 @@ router.get('/', async (req, res) => {
   })
 
   res.json({
-      Spots
+      Spots,
+      page,
+      size
     })
 
 
