@@ -142,8 +142,7 @@ router.get('/:id/bookings', requireAuth, async (req, res) => {
         message: "Spot couldn't be found"
     })
   }
-  console.log(req.user.dataValues.id)
-  console.log(spot.ownerId)
+
   if(req.user.dataValues.id !== spot.ownerId) {
     const Bookings = await Booking.findAll({
       where: {
