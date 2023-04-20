@@ -413,7 +413,12 @@ router.post('/:id/images', requireAuth, async (req, res) => {
       url,
       preview,
       spotId: spot.dataValues.id
-    }, {fields: ['id', 'url', 'preview']})
+    })
+
+    const jsonedImage = image.toJSON()
+    delete jsonedImage.spotId
+    delete jsonedImage.updatedAt
+    delete jsonedImage.createdAt
 
     if(spot.dataValues.ownerId !== req.user.dataValues.id) {
       res.status(403)
@@ -428,7 +433,7 @@ router.post('/:id/images', requireAuth, async (req, res) => {
         message: "Spot couldn't be found"
       })
     }
-    res.json(image)
+    res.json(jsonedImage)
 })
 
 

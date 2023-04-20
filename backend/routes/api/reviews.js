@@ -84,7 +84,14 @@ router.post('/:id/images', requireAuth, async (req, res) => {
     const image = await ReviewImage.create({
       url,
       reviewId: review.dataValues.id
-    }, {fields: ['id', 'url']})
+    })
+
+    const jsonedImage = image.toJSON()
+    delete jsonedImage.reviewId
+    delete jsonedImage.updatedAt
+    delete jsonedImage.createdAt
+
+
 
     if(reviewImages.length > 10) {
         res.status(403)
@@ -93,7 +100,7 @@ router.post('/:id/images', requireAuth, async (req, res) => {
         })
     }
 
-    res.json(image)
+    res.json(jsonedImage)
 })
 
 
