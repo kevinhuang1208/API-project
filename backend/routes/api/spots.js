@@ -171,19 +171,26 @@ router.get('/:id/bookings', requireAuth, async (req, res) => {
 
 //getting a spot by id
 router.get('/:id', async (req, res) => {
-    const id = req.params.id
-    const spot = await Spot.findByPk(id, {
-        include: [
-        {
-            model: SpotImage,
-            attributes: ['id', 'url', 'preview']
-        },
-        {
-            model: User,
-            attributes: ['id', 'firstName', 'lastName']
-        }
+  const id = req.params.id
+  const spot = await Spot.findByPk(id, {
+    include: [
+      {
+        model: SpotImage,
+        attributes: ['id', 'url', 'preview']
+      },
+      {
+        model: User,
+        attributes: ['id', 'firstName', 'lastName']
+      }
     ]
-    })
+  })
+
+  if(!spot) {
+      res.status(404)
+      return res.json({
+          message: "Spot couldn't be found"
+      })
+  }
 
     const numReviews = await Review.findAll({
         where: {
@@ -219,15 +226,9 @@ router.get('/:id', async (req, res) => {
     }
 
 
-    if(!spot) {
-        res.status(404)
-        return res.json({
-            message: "Spot couldn't be found"
-        })
-    } else {
 
-    return res.json(data)
-    }
+    res.json(data)
+
 })
 
 //editting a spot
@@ -406,6 +407,12 @@ router.post('/:id/images', requireAuth, async (req, res) => {
     const idd = req.params.id
     const spot = await Spot.findByPk(idd)
 
+    if(!spot) {
+      res.status(404)
+      return res.json({
+        message: "Spot couldn't be found"
+      })
+    }
     const { url, preview } = req.body
 
     const image = await SpotImage.create({
@@ -426,12 +433,6 @@ router.post('/:id/images', requireAuth, async (req, res) => {
       })
     }
 
-    if(!spot) {
-      res.status(404)
-      return res.json({
-        message: "Spot couldn't be found"
-      })
-    }
     res.json(jsonedImage)
 })
 
