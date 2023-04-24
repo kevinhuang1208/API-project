@@ -75,7 +75,7 @@ router.get('/current', requireAuth, async (req, res) => {
       {model: SpotImage}
     ],
     where: {
-      id: req.user.dataValues.id
+      ownerId: req.user.dataValues.id
     }
   })
 
