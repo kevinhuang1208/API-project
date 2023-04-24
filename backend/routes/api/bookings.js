@@ -49,6 +49,13 @@ router.put('/:id', requireAuth, async (req, res) => {
 
     const bookingToEdit = await Booking.findByPk(req.params.id)
 
+    if(!bookingToEdit) {
+        res.status(404)
+        return res.json({
+            message: "Booking couldn't be found"
+        })
+    }
+
     const bookings = await Booking.findAll({
         where: {
             spotId: bookingToEdit.spotId
@@ -62,12 +69,6 @@ router.put('/:id', requireAuth, async (req, res) => {
     const theEndTime = theEnd.getTime()
 
 
-    if(!bookingToEdit) {
-        res.status(404)
-        return res.json({
-            message: "Booking couldn't be found"
-        })
-    }
 
 
     if(bookingToEdit.dataValues.userId !== req.user.dataValues.id) {
