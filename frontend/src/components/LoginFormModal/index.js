@@ -12,6 +12,9 @@ function LoginFormModal() {
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
+  // const demoUser = "Demo-lition"
+  // const demoPass = "password"
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErrors({});
@@ -23,6 +26,12 @@ function LoginFormModal() {
           setErrors(data.errors);
         }
       });
+  };
+
+  const handleDemoSubmit = (e) => {
+    e.preventDefault();
+    return dispatch(sessionActions.demoLogin("Demo-lition", "password"))
+      .then(closeModal)
   };
 
   return (
@@ -52,6 +61,8 @@ function LoginFormModal() {
         )}
         <button type="submit">Log In</button>
       </form>
+      <button type="submit"
+      onClick={handleDemoSubmit}>Demo User Login</button>
     </>
   );
 }
