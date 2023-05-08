@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux"
 import { getAllSpots } from "../../store/spots"
 import { useEffect } from "react"
 import SpotEach from "./SpotEach"
+import './SpotsAll.css'
 
 
 const SpotsAll = () => {
@@ -9,15 +10,13 @@ const SpotsAll = () => {
 
     const spots = useSelector(state=>Object.values(state.spots))
 
-    console.log('this from spotsall', spots)
-
     useEffect(() => {
         dispatch(getAllSpots())
     }, [dispatch])
 
     return (
         <section>
-            <div>
+            <div className="all-spots-div">
             {spots.map((spot) => (
              <SpotEach
                 spot={spot}
