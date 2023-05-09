@@ -31,7 +31,7 @@ const SpotById = () => {
                 <div className='right-side-spot-id'>
                     <div className='top-right-side-spot-id'>
                         <div>${spot.price} night</div>
-                        <div>⭐{spot.avgStarRating} • {spot.numReviews} review(s)</div>
+                        <div>⭐{spot.avgStarRating.toFixed(1)} • {spot.numReviews} review(s)</div>
                     </div>
                     <button>Reserve</button>
                 </div>
