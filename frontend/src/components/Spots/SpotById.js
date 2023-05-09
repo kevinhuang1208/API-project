@@ -8,11 +8,11 @@ const SpotById = () => {
     const dispatch = useDispatch();
 
     const spot = useSelector(state => state.spots.singleSpot)
-    const reviews = useSelector(state => state.spots.reviews)
-    console.log('this is reviews', reviews)
+    console.log('this is spot', spot)
 
     useEffect(() => {
         dispatch(getSpot(spotId))
+        //another dispatch
     }, [dispatch, spotId])
 
 
@@ -21,10 +21,10 @@ const SpotById = () => {
         return null;
       }
 
-    if(!reviews) return null
-    if(Object.values(reviews).length === 0) {
-          return null;
-        }
+    // if(!reviews) return null
+    // if(Object.values(reviews).length === 0) {
+    //       return null;
+    //     }
 
 
 
