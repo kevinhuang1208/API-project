@@ -3,7 +3,9 @@ import "./SpotsAll.css"
 // import { useDispatch } from 'react-redux';
 
 const SpotEach = ({spot}) => {
-    console.log('this is from spoteach', spot)
+
+    if(!spot.avgRating) return null
+
     return (
         <div className="div-contents-flex">
         <Link to={`/spots/${spot.id}`}>
@@ -13,7 +15,7 @@ const SpotEach = ({spot}) => {
                     <div>{spot.city}, {spot.state}</div>
                     <div>{spot.price}/night</div>
                 </div>
-                <div className='right-side-description'>⭐{spot.avgRating}</div>
+                <div className='right-side-description'>⭐{spot.avgRating.toFixed(1)}</div>
             </div>
         </Link>
 
