@@ -5,6 +5,7 @@ import { Switch, Route } from "react-router-dom";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import SpotsAll from "./components/Spots/SpotsAll";
+import SpotById from "./components/Spots/SpotById";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ function App() {
           <Route exact path="/" component={SpotsAll}>
 
           </Route>
-          <Route >
+          <Route exact path='/spots/:spotId' component={SpotById}>
 
           </Route>
         </Switch>}
