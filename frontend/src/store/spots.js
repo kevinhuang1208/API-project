@@ -14,6 +14,23 @@ export const receiveSpot = (spot) => ({
     spot,
   });
 
+export const createSpot = (spot) => async (dispatch) => {
+    const response = await fetch('/api/spots', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(spot)
+    })
+
+    if(response.ok) {
+        const spot = await response.json()
+        dispatch(receiveSpot(spot))
+        return spot
+    } else {
+        const report = await response.json()
+        return report;
+    }
+}
+
 
 //Thunks
 export const getSpot = (spotId) => async (dispatch) => {
