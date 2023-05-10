@@ -3,6 +3,8 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpot } from '../../store/spots';
 import { getReviews } from '../../store/reviews';
+import PostReviewModal from '../PostReviewModal';
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 
 const SpotById = () => {
     const { spotId } = useParams();
@@ -62,7 +64,10 @@ const SpotById = () => {
             </div>
             <div>⭐{spot.avgStarRating.toFixed(1)} • {spot.numReviews} review(s)</div>
             {/*below is logic for Post Your Review*/}
-            {sessionUser && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <button>Post Your Review</button> : null}
+            {sessionUser && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <OpenModalMenuItem
+              itemText="Post Your Review"
+              modalComponent={<PostReviewModal />}
+            /> : null}
             <div className='reviews-spot-id'>
                 {reviews.map((review) => {
                     return <>
