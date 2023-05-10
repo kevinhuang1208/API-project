@@ -14,9 +14,9 @@ const SpotEach = ({spot}) => {
             <div className='spot-description'>
                 <div className='left-side-description'>
                     <div>{spot.city}, {spot.state}</div>
-                    <div>{spot.price}/night</div>
+                    <div>{spot.price} night</div>
                 </div>
-                <div className='right-side-description'>⭐{spot.avgRating.toFixed(1)}</div>
+                <div className='right-side-description'>⭐{spot.avgRating ? spot.avgRating.toFixed(1) : <>New</>}</div>
             </div>
         </Link>
 
