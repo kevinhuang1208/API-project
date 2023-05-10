@@ -1,33 +1,27 @@
 //Type Constraints
-// export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
-// export const RECEIVE_SPOT = 'spots/RECEIVE_SPOTS'
+export const GET_REVIEWS = 'reviews/GET_REVIEWS'
 
 //Action Creators
-// export const loadSpots = (spots) => ({
-//     type: LOAD_SPOTS,
-//     spots,
-// })
 
-// export const receiveSpot = (spot) => ({
-//     type: RECEIVE_SPOT,
-//     spot,
-//   });
+
+export const getReviewsBySpot = (reviews) => ({
+    type: GET_REVIEWS,
+    reviews,
+  });
 
 //Thunks
-// export const getSpot = (spotId) => async (dispatch) => {
-//     const response = await fetch(`/api/spots/${spotId}`);
-//     const eachSpot = await response.json();
-//     dispatch(receiveSpot(eachSpot));
-//   };
+export const getReviews = (spotId) => async (dispatch) => {
+    const response = await fetch(`/api/spots/${spotId}/reviews`);
+    const reviews = await response.json();
+    dispatch(getReviewsBySpot(reviews));
+  };
 
-// export const getAllSpots = () => async (dispatch) => {
-//     const response = await fetch('/api/spots');
-//     const spots = await response.json();
-//     dispatch(loadSpots(spots));
-// }
+
 
 const reviewsReducer = (state = {spot: {}, user: {}}, action) => {
     switch (action.type) {
+        case GET_REVIEWS:
+            return {...state, spot: action.reviews}
         default:
             return state
     }
