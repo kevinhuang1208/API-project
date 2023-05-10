@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { createSpot } from '../../store/spots';
+import { changeSpot, createSpot, editSpot } from '../../store/spots';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 const SpotForm = ({ formType }) => {
@@ -23,6 +23,7 @@ const SpotForm = ({ formType }) => {
 
     const urls = [url, url2, url3, url4, url5]
 
+
     useEffect(() => {
         let errors = [];
         if (!country.length) errors.push("Country is required");
@@ -38,6 +39,7 @@ const SpotForm = ({ formType }) => {
     }, [country, address, city, state, description, name, price, url])
 
     const dispatch = useDispatch()
+    const {spotId} = useParams()
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -61,34 +63,38 @@ const SpotForm = ({ formType }) => {
 
         const spot = await dispatch(createSpot(newSpot))
         if(spot.id) {
-          reset()
-          history.push(`/spots/${spot.id}`)
+            setCountry("")
+            setAddress("")
+            setCity("")
+            setState("")
+            setDescription("")
+            setName("")
+            setPrice("")
+            setUrl("")
+            setValidationErrors([]);
+            setHasSubmitted(false);
+            history.push(`/spots/${spot.id}`)
         }
       }
 
-    //   if (formType==="Update Report") {
-    //     const changeASingleReport = await dispatch(changingAReport(report, report.id))
-    //     if(changeASingleReport.id) {
-    //       reset()
-    //       history.push(`/reports/${changeASingleReport.id}`)
-    //     } else {
-    //       setErrors(changeASingleReport.errors)
-    //     }
-    //   }
-    // };
-    }
-    const reset = () => {
-      setCountry("")
-      setAddress("")
-      setCity("")
-      setState("")
-      setDescription("")
-      setName("")
-      setPrice("")
-      setUrl("")
-      setValidationErrors([]);
-      setHasSubmitted(false);
-    }
+      if (formType==="Edit Spot") {
+
+        const alteredSpot = {
+            country,
+            address,
+            city,
+            state,
+            description,
+            name,
+            price
+        }
+        dispatch(editSpot(alteredSpot, spotId))
+        if(spotId) {
+            history.push(`/spots/${spotId}`)
+        }
+      }
+    };
+
 
     return (
       <form onSubmit={handleSubmit}>
@@ -233,6 +239,8 @@ const SpotForm = ({ formType }) => {
             )}
         </div>
 
+        {formType==="Create Spot" ?
+        <div>
         <h3>Liven up your spot with photos</h3>
         <p>Submit a link to at least one photo to publish your spot</p>
 
@@ -279,6 +287,8 @@ const SpotForm = ({ formType }) => {
             placeholder='Image URL'
         />
         </div>
+        </div>
+        : <></> }
         <button type="submit">{formType}</button>
 
 

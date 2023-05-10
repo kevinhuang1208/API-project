@@ -4,6 +4,7 @@ export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 export const RECEIVE_SPOT = 'spots/RECEIVE_SPOTS'
 export const ADD_SPOT = 'spots/ADD_SPOT'
 export const ADD_IMAGE = 'spots/ADD_IMAGE'
+export const EDIT_SPOT = 'spots/EDIT_SPOT'
 
 //Action Creators
 export const loadSpots = (spots) => ({
@@ -18,6 +19,11 @@ export const receiveSpot = (spot) => ({
 
 export const addSpot = (spot) => ({
     type: ADD_SPOT,
+    spot,
+})
+
+export const changeSpot = (spot) => ({
+    type: EDIT_SPOT,
     spot,
 })
 
@@ -65,8 +71,19 @@ export const addSpot = (spot) => ({
             // dispatch(addImage(response1))
             return aSpot
         }
+    }
 
-
+    export const editSpot = (spot, spotId) => async (dispatch) => {
+        const response = await fetch(`/api/spots/${spotId}`, {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(spot)
+        })
+        if(response.ok) {
+            const edittedSpot = await response.json()
+            dispatch(changeSpot(edittedSpot))
+            return edittedSpot
+        }
     }
 
 const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
@@ -87,6 +104,8 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
             return {...state, singleSpot: action.spot}
         // case ADD_IMAGE:
         //     return {...state, singleSpot: action.url}
+        case EDIT_SPOT:
+            return {...state, singleSpot: action.spot}
         default:
             return state
     }

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from "react-redux"
 import { getOwnerSpots } from "../../store/spots"
 import { useEffect } from "react"
-import { Link } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 import './ManageSpot.css'
 
 const ManageSpot = () => {
@@ -35,7 +35,14 @@ const ManageSpot = () => {
                     <div className='right-side-description'>⭐{spot.avgRating ? spot.avgRating.toFixed(1) : <>New</>}</div>
                 </div>
             </Link>
+            <div className='buttons'>
+                <button><NavLink className='edit-spot' to={`/spots/${spot.id}/edit`}>Update</NavLink></button>
+                <button>Delete</button>
             </div>
+            </div>
+
+
+
         ) :
         <Link to={'/spots/new'}>Create a New Spot!</Link>
         }
