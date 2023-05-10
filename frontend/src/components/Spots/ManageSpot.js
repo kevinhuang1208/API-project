@@ -1,29 +1,28 @@
 import { useSelector, useDispatch } from "react-redux"
-import { getAllSpots } from "../../store/spots"
+import { getOwnerSpots } from "../../store/spots"
 import { useEffect } from "react"
 import { Link } from "react-router-dom"
+import './ManageSpot.css'
 
 const ManageSpot = () => {
 
     const dispatch = useDispatch()
-    const sessionUser = useSelector(state => state.session.user);
 
     const allSpots = useSelector(state=>state.spots.allSpots)
 
     const spots = Object.values(allSpots)
 
 
-    const ownSpots = spots.filter((spot) => spot.ownerId === sessionUser.id)
-
     useEffect(() => {
-        dispatch(getAllSpots())
+        dispatch(getOwnerSpots())
     }, [dispatch])
 
-    console.log('this is a spot', ownSpots)
+
+    console.log('this is a spot', spots)
 
     return(
-        <>
-        {ownSpots.map((spot) => {
+        <div className="big-div">
+        {spots.length ? spots.map((spot) =>
             <div className="div-contents-flex">
             <Link className='each-link' to={`/spots/${spot.id}`}>
                 <span className='tooltip'>{spot.name}</span>
@@ -37,8 +36,10 @@ const ManageSpot = () => {
                 </div>
             </Link>
             </div>
-        })}
-        </>
+        ) :
+        <Link to={'/spots/new'}>Create a New Spot!</Link>
+        }
+        </div>
     )
 
 }

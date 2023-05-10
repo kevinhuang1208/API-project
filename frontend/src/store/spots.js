@@ -41,6 +41,12 @@ export const addSpot = (spot) => ({
         dispatch(loadSpots(spots));
     }
 
+    export const getOwnerSpots = () => async (dispatch) => {
+        const response = await fetch('/api/spots/current')
+        const spots = await response.json()
+        dispatch(loadSpots(spots))
+    }
+
     export const createSpot = (spot) => async (dispatch) => {
         const response = await csrfFetch('/api/spots', {
             method: 'POST',
