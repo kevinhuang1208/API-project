@@ -3,6 +3,7 @@ import { csrfFetch } from "./csrf";
 export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
 export const RECEIVE_SPOT = 'spots/RECEIVE_SPOTS'
 export const ADD_SPOT = 'spots/ADD_SPOT'
+export const ADD_IMAGE = 'spots/ADD_IMAGE'
 
 //Action Creators
 export const loadSpots = (spots) => ({
@@ -20,6 +21,12 @@ export const addSpot = (spot) => ({
     spot,
 })
 
+//potential
+// export const addImage = (url) => ({
+//     type: ADD_IMAGE,
+//     url,
+// })
+
 
   //Thunks
   export const getSpot = (spotId) => async (dispatch) => {
@@ -34,22 +41,25 @@ export const addSpot = (spot) => ({
         dispatch(loadSpots(spots));
     }
 
-    export const createSpot = (spot, spotId) => async (dispatch) => {
+    export const createSpot = (spot) => async (dispatch) => {
         const response = await csrfFetch('/api/spots', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(spot)
         })
         const aSpot = await response.json()
-        dispatch(addSpot(aSpot))
-
-        const responseUrl = await csrfFetch(`/api/spots/${spotId}/images`, {
+        //response.ok condition
+        const response1 = await csrfFetch(`/api/spots/${aSpot.id}/images`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(spot)
+            body: JSON.stringify(spot.SpotImages)
         })
-        dispatch(addSpot(responseUrl))
-        return aSpot
+        if(response.ok) {
+            dispatch(addSpot(aSpot))
+            // dispatch(addImage(response1))
+            return aSpot
+        }
+
 
     }
 
@@ -69,6 +79,8 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
             return {...state, singleSpot: action.spot}
         case ADD_SPOT:
             return {...state, singleSpot: action.spot}
+        // case ADD_IMAGE:
+        //     return {...state, singleSpot: action.url}
         default:
             return state
     }

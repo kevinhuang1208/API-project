@@ -15,7 +15,7 @@ const SpotById = () => {
     const spot = useSelector(state => state.spots.singleSpot)
     const reviews = useSelector(state => state.reviews.spot.Reviews)
 
-    console.log(reviews)
+    console.log('this is spot', spot)
 
     //if user did NOT post a review yet
     const didNotPostYet = () => {
@@ -57,12 +57,12 @@ const SpotById = () => {
                 <div className='right-side-spot-id'>
                     <div className='top-right-side-spot-id'>
                         <div>${spot.price} night</div>
-                        <div>⭐{spot.avgStarRating.toFixed(1)} • {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}</div>
+                        <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} • {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}</div>
                     </div>
                     <button>Reserve</button>
                 </div>
             </div>
-            <div>⭐{spot.avgStarRating.toFixed(1)} • {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}</div>
+            <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} • {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}</div>
             {/*below is logic for Post Your Review*/}
             {sessionUser && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <OpenModalMenuItem
               itemText="Post Your Review"

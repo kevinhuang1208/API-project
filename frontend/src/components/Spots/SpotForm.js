@@ -13,13 +13,15 @@ const SpotForm = ({ formType }) => {
     const [description, setDescription] = useState("")
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
-    const [url, setUrl] = useState("")
-    const [url2, setUrl2] = useState("")
-    const [url3, setUrl3] = useState("")
-    const [url4, setUrl4] = useState("")
-    const [url5, setUrl5] = useState("")
+    const [url, setUrl] = useState({url: "", preview: true})
+    const [url2, setUrl2] = useState({url: "", preview: false})
+    const [url3, setUrl3] = useState({url: "", preview: false})
+    const [url4, setUrl4] = useState({url: "", preview: false})
+    const [url5, setUrl5] = useState({url: "", preview: false})
     const [validationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
+
+    const urls = [url, url2, url3, url4, url5]
 
     useEffect(() => {
         let errors = [];
@@ -30,8 +32,8 @@ const SpotForm = ({ formType }) => {
         if(description.length < 30) errors.push("Description needs a minimum of 30 characters")
         if(!name.length) errors.push("Name is required")
         if(!price) errors.push("Price is required")
-        if(!url.length) errors.push("Preview image is required")
-        if(!url.endsWith(".png") && !url.endsWith(".jpg") && !url.endsWith(".jpeg")) errors.push("Image URL must end in .png, .jpg, .jpeg")
+        if(!Object.keys(url).length) errors.push("Preview image is required")
+        if(url.url && !url.url.endsWith(".png") && !url.url.endsWith(".jpg") && !url.url.endsWith(".jpeg")) errors.push("Image URL must end in .png, .jpg, .jpeg")
         setValidationErrors(errors);
     }, [country, address, city, state, description, name, price, url])
 
@@ -44,19 +46,19 @@ const SpotForm = ({ formType }) => {
 
       if (validationErrors.length) return alert(`Cannot Submit`);
 
-      const newSpot = {
-        country,
-        address,
-        city,
-        state,
-        description,
-        name,
-        price,
-        SpotImages: [url]
-      }
-      console.log(formType)
 
       if(formType==="Create Spot") {
+        const newSpot = {
+            country,
+            address,
+            city,
+            state,
+            description,
+            name,
+            price,
+            SpotImages: urls
+        }
+
         const spot = await dispatch(createSpot(newSpot))
         if(spot.id) {
           reset()
@@ -235,7 +237,7 @@ const SpotForm = ({ formType }) => {
         <p>Submit a link to at least one photo to publish your spot</p>
 
         <input
-            value={url}
+            value={url.url}
             onChange={(e) => setUrl(e.target.value)}
             placeholder='Preview Image URL'
             />
@@ -251,28 +253,28 @@ const SpotForm = ({ formType }) => {
         </div>
         <div>
         <input
-            value={url2}
+            value={url2.url}
             onChange={(e) => setUrl2(e.target.value)}
             placeholder='Image URL'
         />
         </div>
         <div>
         <input
-            value={url3}
+            value={url3.url}
             onChange={(e) => setUrl3(e.target.value)}
             placeholder='Image URL'
         />
         </div>
         <div>
         <input
-            value={url4}
+            value={url4.url}
             onChange={(e) => setUrl4(e.target.value)}
             placeholder='Image URL'
         />
         </div>
         <div>
         <input
-            value={url5}
+            value={url5.url}
             onChange={(e) => setUrl5(e.target.value)}
             placeholder='Image URL'
         />
