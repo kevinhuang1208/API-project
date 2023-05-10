@@ -10,6 +10,21 @@
     margin: 8px;
 }
 
+.each-link {
+    position: relative;
+}
+
+.each-link:hover .tooltip {
+    visibility: visible;
+}
+
+.tooltip {
+    position: absolute;
+    visibility: hidden;
+    background-color: gray;
+    color: white;
+}
+
 .div-contents-flex > a > .spot-description {
    display: flex;
    flex-direction: row;

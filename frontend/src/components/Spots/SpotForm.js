@@ -14,8 +14,10 @@ const SpotForm = ({ formType }) => {
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
     const [url, setUrl] = useState("")
-    const [lat, setLat] = useState("")
-    const [lng, setLng] = useState("")
+    const [url2, setUrl2] = useState("")
+    const [url3, setUrl3] = useState("")
+    const [url4, setUrl4] = useState("")
+    const [url5, setUrl5] = useState("")
     const [validationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -209,7 +211,7 @@ const SpotForm = ({ formType }) => {
 
 
         <h3>Set a base price for your spot</h3>
-        <p>Competitive pricing can help your listing stand out and reank higher in search results</p>
+        <p>Competitive pricing can help your listing stand out and rank higher in search results</p>
 
         <div> $
         <input
@@ -241,13 +243,40 @@ const SpotForm = ({ formType }) => {
             {hasSubmitted && validationErrors.length > 0 && (
                 <div>
                     {validationErrors.map((error) => {
-                        if(error === "Priview image is required") return error
+                        if(error === "Preview image is required") return error
                         }
                     )}
                 </div>
             )}
         </div>
-
+        <div>
+        <input
+            value={url2}
+            onChange={(e) => setUrl2(e.target.value)}
+            placeholder='Image URL'
+        />
+        </div>
+        <div>
+        <input
+            value={url3}
+            onChange={(e) => setUrl3(e.target.value)}
+            placeholder='Image URL'
+        />
+        </div>
+        <div>
+        <input
+            value={url4}
+            onChange={(e) => setUrl4(e.target.value)}
+            placeholder='Image URL'
+        />
+        </div>
+        <div>
+        <input
+            value={url5}
+            onChange={(e) => setUrl5(e.target.value)}
+            placeholder='Image URL'
+        />
+        </div>
         <button type="submit">{formType}</button>
 
 

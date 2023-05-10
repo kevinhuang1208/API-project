@@ -59,7 +59,7 @@ function LoginFormModal() {
         {errors.credential && (
           <p>{errors.credential}</p>
         )}
-        <button type="submit">Log In</button>
+        <button type="submit" disabled={credential.length < 4 || password.length < 6 ? true : false}>Log In</button>
       </form>
       <button type="submit"
       onClick={handleDemoSubmit}>Demo User Login</button>

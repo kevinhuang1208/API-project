@@ -1,3 +1,26 @@
 .hidden {
     display: none;
 }
+
+ul > li > .navlink > .logo-name > img {
+    height: 50px;
+    width: 50px;
+}
+
+ul > li,
+ul > .right-nav > li {
+    list-style-type: none;
+}
+
+.right-nav {
+    display: flex;
+}
+
+.create-spot {
+    margin-right: 10px;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+}
