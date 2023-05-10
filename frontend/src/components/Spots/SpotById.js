@@ -8,10 +8,21 @@ const SpotById = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
 
+    const sessionUser = useSelector(state => state.session.user);
+
     const spot = useSelector(state => state.spots.singleSpot)
     const reviews = useSelector(state => state.reviews.spot.Reviews)
-    console.log(spot)
-    console.log('this is reviews', reviews)
+
+    console.log(reviews)
+
+    //if user did NOT post a review yet
+    const didNotPostYet = () => {
+        let didNotPost = true
+        reviews.forEach((review) => {
+            if(review.User.id === sessionUser.id) didNotPost = false
+        })
+        return didNotPost
+    }
 
     useEffect(() => {
         dispatch(getSpot(spotId))
@@ -49,6 +60,9 @@ const SpotById = () => {
                     <button>Reserve</button>
                 </div>
             </div>
+            <div>⭐{spot.avgStarRating.toFixed(1)} • {spot.numReviews} review(s)</div>
+            {/*below is logic for Post Your Review*/}
+            {sessionUser && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <button>Post Your Review</button> : null}
             <div className='reviews-spot-id'>
                 {reviews.map((review) => {
                     return <>
