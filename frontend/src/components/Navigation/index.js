@@ -11,7 +11,7 @@ function Navigation({ isLoaded }){
   return (
     <ul>
       <li>
-        <NavLink className='navlink' exact to="/"><img src='https://img.freepik.com/premium-vector/icon-kindness-charity-hand-heart-hand-hug-heart-symbol-valentines-day-love-hand-drawn_81863-4927.jpg'/></NavLink>
+        <NavLink className='navlink' exact to="/"><div className='logo-name'><img src='https://img.freepik.com/premium-vector/icon-kindness-charity-hand-heart-hand-hug-heart-symbol-valentines-day-love-hand-drawn_81863-4927.jpg'/> CareBnB</div></NavLink>
       </li>
       <div className='right-nav'>
       {sessionUser ? <li>
@@ -19,7 +19,7 @@ function Navigation({ isLoaded }){
       </li> : null}
       {isLoaded && (
         <li>
-          <ProfileButton user={sessionUser} />
+          <ProfileButton classname='profile' user={sessionUser} />
         </li>
       )}
       </div>
