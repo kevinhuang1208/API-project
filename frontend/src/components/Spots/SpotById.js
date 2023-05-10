@@ -10,6 +10,7 @@ const SpotById = () => {
 
     const spot = useSelector(state => state.spots.singleSpot)
     const reviews = useSelector(state => state.reviews.spot.Reviews)
+    console.log(spot)
     console.log('this is reviews', reviews)
 
     useEffect(() => {

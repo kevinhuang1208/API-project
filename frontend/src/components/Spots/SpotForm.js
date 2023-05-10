@@ -14,6 +14,8 @@ const SpotForm = ({ formType }) => {
     const [name, setName] = useState("")
     const [price, setPrice] = useState("")
     const [url, setUrl] = useState("")
+    const [lat, setLat] = useState("")
+    const [lng, setLng] = useState("")
     const [validationErrors, setValidationErrors] = useState([]);
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
@@ -27,7 +29,7 @@ const SpotForm = ({ formType }) => {
         if(!name.length) errors.push("Name is required")
         if(!price) errors.push("Price is required")
         if(!url.length) errors.push("Preview image is required")
-        if(!url.endsWith(".png") || !url.endsWith(".jpg") || !url.endsWith(".jpeg")) errors.push("Image URL must end in .png, .jpg, .jpeg")
+        if(!url.endsWith(".png") && !url.endsWith(".jpg") && !url.endsWith(".jpeg")) errors.push("Image URL must end in .png, .jpg, .jpeg")
         setValidationErrors(errors);
     }, [country, address, city, state, description, name, price, url])
 
@@ -37,6 +39,7 @@ const SpotForm = ({ formType }) => {
       e.preventDefault();
 
       setHasSubmitted(true);
+
       if (validationErrors.length) return alert(`Cannot Submit`);
 
       const newSpot = {
@@ -47,13 +50,12 @@ const SpotForm = ({ formType }) => {
         description,
         name,
         price,
-        url
+        SpotImages: [url]
       }
+      console.log(formType)
 
-
-      if(formType==="Create Report") {
+      if(formType==="Create Spot") {
         const spot = await dispatch(createSpot(newSpot))
-        console.log(spot)
         if(spot.id) {
           reset()
           history.push(`/spots/${spot.id}`)
@@ -212,7 +214,7 @@ const SpotForm = ({ formType }) => {
         <div> $
         <input
             value={price}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => setPrice(e.target.value)}
             placeholder='Price per night (USD)'
             />
         </div>
@@ -227,8 +229,26 @@ const SpotForm = ({ formType }) => {
             )}
         </div>
 
+        <h3>Liven up your spot with photos</h3>
+        <p>Submit a link to at least one photo to publish your spot</p>
 
-            <button type="submit">{formType}</button>
+        <input
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+            placeholder='Preview Image URL'
+            />
+        <div>
+            {hasSubmitted && validationErrors.length > 0 && (
+                <div>
+                    {validationErrors.map((error) => {
+                        if(error === "Priview image is required") return error
+                        }
+                    )}
+                </div>
+            )}
+        </div>
+
+        <button type="submit">{formType}</button>
 
 
       </form>
