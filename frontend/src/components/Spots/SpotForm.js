@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSpot, createSpot, editSpot } from '../../store/spots';
+import { addImage, changeSpot, createSpot, editSpot } from '../../store/spots';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 const SpotForm = ({ formType }) => {
@@ -22,7 +22,7 @@ const SpotForm = ({ formType }) => {
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const urls = [url, url2, url3, url4, url5]
-
+    // console.log(urls)
 
     useEffect(() => {
         let errors = [];
@@ -61,7 +61,9 @@ const SpotForm = ({ formType }) => {
             SpotImages: urls
         }
 
-        const spot = await dispatch(createSpot(newSpot))
+        // if(url) await dispatch(addImage(url))
+
+        const spot = await dispatch(createSpot(newSpot, urls))
         if(spot.id) {
             setCountry("")
             setAddress("")

@@ -20,7 +20,7 @@ const ManageSpot = () => {
     }, [dispatch])
 
 
-    console.log('this is a spot', spots)
+    // console.log('this is a spot', spots)
 
     return(
         <div className="big-div">
@@ -42,7 +42,10 @@ const ManageSpot = () => {
                 <button><OpenModalMenuItem
                 className='delete-button'
               itemText="Delete"
-              modalComponent={<DeleteSpotModal />}
+              modalComponent={<DeleteSpotModal
+                spot={spot}
+                key={spot.id}
+                />}
             /></button>
             </div>
             </div>

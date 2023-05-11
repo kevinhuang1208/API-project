@@ -41,7 +41,7 @@ const SpotById = () => {
     // if(Object.values(reviews).length === 0) {
     //       return null;
     //     }
-
+    // if(!spot.SpotImages) return null;
 
 
     return (

@@ -13,7 +13,6 @@ const SpotsAll = () => {
 
     const spots = Object.values(allSpots)
 
-
     useEffect(() => {
         dispatch(getAllSpots())
     }, [dispatch])
