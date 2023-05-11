@@ -246,7 +246,7 @@ const SpotForm = ({ formType }) => {
 
         <input
             value={url.url}
-            onChange={(e) => setUrl(e.target.value)}
+             onChange={(e) => setUrl({url: e.target.value, preview: true})}
             placeholder='Preview Image URL'
             />
         <div>
