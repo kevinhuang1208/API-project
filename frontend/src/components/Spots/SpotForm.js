@@ -1,18 +1,23 @@
 import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeSpot, createSpot, editSpot } from '../../store/spots';
+import { addImage, changeSpot, createSpot, editSpot } from '../../store/spots';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 
 const SpotForm = ({ formType }) => {
     const history = useHistory();
-    const [country, setCountry] = useState("");
-    const [address, setAddress] = useState("");
-    const [city, setCity] = useState("")
-    const [state, setState] = useState("")
-    const [description, setDescription] = useState("")
-    const [name, setName] = useState("")
-    const [price, setPrice] = useState("")
+
+    const {spotId} = useParams()
+
+    const theSpot = useSelector(state=>state.spots.allSpots[spotId])
+
+    const [country, setCountry] = useState(spotId ? theSpot.country : "");
+    const [address, setAddress] = useState(spotId ? theSpot.address : "");
+    const [city, setCity] = useState(spotId ? theSpot.city : "")
+    const [state, setState] = useState(spotId ? theSpot.state : "")
+    const [description, setDescription] = useState(spotId ? theSpot.description : "")
+    const [name, setName] = useState(spotId ? theSpot.name : "")
+    const [price, setPrice] = useState(spotId ? theSpot.price : "")
     const [url, setUrl] = useState({url: "", preview: true})
     const [url2, setUrl2] = useState({url: "", preview: false})
     const [url3, setUrl3] = useState({url: "", preview: false})
@@ -22,6 +27,8 @@ const SpotForm = ({ formType }) => {
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const urls = [url, url2, url3, url4, url5]
+    // console.log(urls)
+
 
 
     useEffect(() => {
@@ -39,7 +46,10 @@ const SpotForm = ({ formType }) => {
     }, [country, address, city, state, description, name, price, url])
 
     const dispatch = useDispatch()
-    const {spotId} = useParams()
+    // //conditoinals to prepopulate inputs
+
+
+    // console.log('here is the spot in spotsform', theSpot)
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -61,7 +71,9 @@ const SpotForm = ({ formType }) => {
             SpotImages: urls
         }
 
-        const spot = await dispatch(createSpot(newSpot))
+        // if(url) await dispatch(addImage(url))
+
+        const spot = await dispatch(createSpot(newSpot, urls))
         if(spot.id) {
             setCountry("")
             setAddress("")
@@ -78,6 +90,7 @@ const SpotForm = ({ formType }) => {
       }
 
       if (formType==="Edit Spot") {
+        // const theSpot = useSelector(state=>state.spots.allSpots[spotId])
 
         const alteredSpot = {
             country,
@@ -90,6 +103,15 @@ const SpotForm = ({ formType }) => {
         }
         dispatch(editSpot(alteredSpot, spotId))
         if(spotId) {
+            setCountry("")
+            setAddress("")
+            setCity("")
+            setState("")
+            setDescription("")
+            setName("")
+            setPrice("")
+            setValidationErrors([]);
+            setHasSubmitted(false);
             history.push(`/spots/${spotId}`)
         }
       }
@@ -134,10 +156,11 @@ const SpotForm = ({ formType }) => {
                     )}
             <div>
             <input
+                type="text"
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 placeholder='Address'
-             />
+            />
             </div>
             </label>
         </div>
@@ -153,11 +176,11 @@ const SpotForm = ({ formType }) => {
                     )}
 
             <input
+                type="text"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
                 placeholder='City'
-             />
-
+            />
             , </label>
 
             <label>
@@ -169,11 +192,14 @@ const SpotForm = ({ formType }) => {
                         )}
                      </div>
                     )}
+
             <input
+                type="text"
                 value={state}
                 onChange={(e) => setState(e.target.value)}
                 placeholder='STATE'
-             />
+            />
+
             </label>
         </div>
 
@@ -181,11 +207,12 @@ const SpotForm = ({ formType }) => {
         <h3>Describe your place to guests</h3>
         <p>Mention the best features of your space, any special amenities like fast wifi or parking, and what you love about the neighborhood.</p>
 
-        <textarea
+            <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             placeholder='Please write at least 30 characters'
             />
+
         <div>
             {hasSubmitted && validationErrors.length > 0 && (
                 <div>
@@ -202,10 +229,11 @@ const SpotForm = ({ formType }) => {
 
 
         <input
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder='Name of your spot'
-            />
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder='Name of your spot'
+        />
         <div>
             {hasSubmitted && validationErrors.length > 0 && (
                 <div>
@@ -221,11 +249,13 @@ const SpotForm = ({ formType }) => {
         <h3>Set a base price for your spot</h3>
         <p>Competitive pricing can help your listing stand out and rank higher in search results</p>
 
+        <>
         <div> $
-        <input
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder='Price per night (USD)'
+            <input
+                type="text"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                placeholder='Price per Night (USD)'
             />
         </div>
         <div>
@@ -238,7 +268,9 @@ const SpotForm = ({ formType }) => {
                 </div>
             )}
         </div>
+        </>
 
+                    {/* } */}
         {formType==="Create Spot" ?
         <div>
         <h3>Liven up your spot with photos</h3>

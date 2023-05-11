@@ -469,7 +469,7 @@ router.get('/', async (req, res) => {
   let { page, size } = req.query
 
   if(!page) page = 1
-  if(!size) size = 20
+  // if(!size) size = 20
 
   page = parseInt(page);
   size = parseInt(size);
@@ -494,7 +494,7 @@ router.get('/', async (req, res) => {
   }
 
   if(page > 10) page = 10;
-  if(size > 20) size = 20;
+  // if(size > 20) size = 20;
 
   const pagination = {};
     if (page >= 1 && size >= 1) {

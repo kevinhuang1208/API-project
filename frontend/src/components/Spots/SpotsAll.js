@@ -8,20 +8,21 @@ import './SpotsAll.css'
 const SpotsAll = () => {
     const dispatch = useDispatch()
 
-
-    const allSpots = useSelector(state=>state.spots.allSpots)
-
-    const spots = Object.values(allSpots)
-
-
     useEffect(() => {
         dispatch(getAllSpots())
     }, [dispatch])
+
+    const allSpots = useSelector(state=>state.spots.allSpots)
+    const spots = Object.values(allSpots)
+
+    // console.log('allspots', spots)
+
 
     return (
         <section>
             <div className="all-spots-div">
             {spots.map((spot) => (
+
              <SpotEach
                 spot={spot}
                 key={spot.id}

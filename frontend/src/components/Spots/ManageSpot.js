@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux"
 import { getOwnerSpots } from "../../store/spots"
 import { useEffect } from "react"
 import { Link, NavLink } from "react-router-dom"
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import DeleteSpotModal from "./DeleteSpot";
 import './ManageSpot.css'
 
 const ManageSpot = () => {
@@ -18,7 +20,7 @@ const ManageSpot = () => {
     }, [dispatch])
 
 
-    console.log('this is a spot', spots)
+    // console.log('this is a spot', spots)
 
     return(
         <div className="big-div">
@@ -37,7 +39,14 @@ const ManageSpot = () => {
             </Link>
             <div className='buttons'>
                 <button><NavLink className='edit-spot' to={`/spots/${spot.id}/edit`}>Update</NavLink></button>
-                <button>Delete</button>
+                <button><OpenModalMenuItem
+                className='delete-button'
+              itemText="Delete"
+              modalComponent={<DeleteSpotModal
+                spot={spot}
+                key={spot.id}
+                />}
+            /></button>
             </div>
             </div>
 

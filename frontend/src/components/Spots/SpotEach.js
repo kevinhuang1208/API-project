@@ -4,8 +4,6 @@ import "./SpotsAll.css"
 
 const SpotEach = ({spot}) => {
 
-    if(!spot.avgRating) return null
-
     return (
         <div className="div-contents-flex">
         <Link className='each-link' to={`/spots/${spot.id}`}>
