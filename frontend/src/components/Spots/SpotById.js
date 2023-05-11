@@ -5,6 +5,7 @@ import { getSpot } from '../../store/spots';
 import { getReviews } from '../../store/reviews';
 import PostReviewModal from '../PostReviewModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import './SpotById.css'
 
 const SpotById = () => {
     const { spotId } = useParams();
@@ -57,7 +58,13 @@ const SpotById = () => {
         <>
             <h2>{spot.name}</h2>
             <h4>{spot.city}, {spot.state}, {spot.country}</h4>
-            <img src={spot.SpotImages[0] ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Home Image'/>
+            <div className='grid'>
+            <img className='main' src={spot.SpotImages[0] ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Home Image'/>
+            <img className='photoone' src={spot.SpotImages[1] ? spot.SpotImages[1].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
+            <img className='phototwo' src={spot.SpotImages[2] ? spot.SpotImages[2].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
+            <img className='photothree' src={spot.SpotImages[3] ? spot.SpotImages[3].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
+            <img className='photofour' src={spot.SpotImages[4] ? spot.SpotImages[4].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
+            </div>
             <div className='middle-section-spot-id'>
                 <div className='left-side-spot-id'>
                     <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>

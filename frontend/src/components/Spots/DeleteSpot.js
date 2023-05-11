@@ -16,7 +16,7 @@ const DeleteSpotModal = ({spot}) => {
 
         return dispatch(deleteSpot(spot.id))
           .then(closeModal)
-      };
+    };
 
       useEffect(() => {
         dispatch(getOwnerSpots())
@@ -27,7 +27,7 @@ const DeleteSpotModal = ({spot}) => {
           <h1>Confirm Delete</h1>
           <>Are you sure you want to remove this spot from the listings?</>
           <button onClick={handleClick}>Yes (Delete Spot)</button>
-          <button>No (Keep Spot)</button>
+          <button onClick={closeModal}>No (Keep Spot)</button>
         </>
       );
 }
