@@ -294,28 +294,28 @@ const SpotForm = ({ formType }) => {
         <div>
         <input
             value={url2.url}
-            onChange={(e) => setUrl2(e.target.value)}
+            onChange={(e) => setUrl2({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
         </div>
         <div>
         <input
             value={url3.url}
-            onChange={(e) => setUrl3(e.target.value)}
+            onChange={(e) => setUrl3({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
         </div>
         <div>
         <input
             value={url4.url}
-            onChange={(e) => setUrl4(e.target.value)}
+            onChange={(e) => setUrl4({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
         </div>
         <div>
         <input
             value={url5.url}
-            onChange={(e) => setUrl5(e.target.value)}
+            onChange={(e) => setUrl5({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
         </div>

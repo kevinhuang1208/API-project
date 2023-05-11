@@ -1,0 +1,38 @@
+.grid {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas:
+    "main main one two"
+    "main main three four";
+}
+
+.grid > .main {
+    width: 500px;
+    height: 400px;
+    grid-area: main;
+}
+
+.grid > .photoone {
+    grid-area: one;
+    width: 250px;
+    height: 200px;
+}
+
+.grid > .phototwo {
+    grid-area: two;
+    width: 250px;
+    height: 200px;
+}
+
+.grid > .photothree {
+    grid-area: three;
+    width: 250px;
+    height: 200px;
+}
+
+.grid > .photofour {
+    grid-area: four;
+    width: 250px;
+    height: 200px;
+}
