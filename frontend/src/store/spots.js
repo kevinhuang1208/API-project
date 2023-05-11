@@ -88,7 +88,7 @@ export const addImage = (url) => ({
     }
 
     export const editSpot = (spot, spotId) => async (dispatch) => {
-        const response = await fetch(`/api/spots/${spotId}`, {
+        const response = await csrfFetch(`/api/spots/${spotId}`, {
             method: 'PUT',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(spot)
@@ -117,7 +117,7 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
         case LOAD_SPOTS:
             newState = {...state}
             const spotsState = {};
-            console.log(action.spots)
+            // console.log(action.spots)
             action.spots.Spots.map((spot) => {
                 spotsState[spot.id] = spot;
             })
@@ -136,9 +136,10 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
 
         //     return {...state, singleSpot: action.url}
         case EDIT_SPOT:
-            newState = {...state, singleSpot: {...state.singleSpot}, allSpots: {...state.allSpots}}
-            newState.singleSpot[action.spot.id] = action.spot
-            newState.allSpots[action.spot.id] = action.spot
+            const editSpot = {...state, singleSpot: {...state.singleSpot}, allSpots: {...state.allSpots}}
+            newSpot.singleSpot[action.spot.id] = action.spot
+            newSpot.allSpots[action.spot.id] = action.spot
+            newState = editSpot
             return newState
         case DELETE_SPOT:
             newState = {...state, singleSpot: {...state.singleSpot}, allSpots: {...state.allSpots}}

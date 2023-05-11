@@ -8,27 +8,25 @@ import './SpotsAll.css'
 const SpotsAll = () => {
     const dispatch = useDispatch()
 
+    useEffect(() => {
+        dispatch(getAllSpots())
+    }, [dispatch])
 
     const allSpots = useSelector(state=>state.spots.allSpots)
     const spots = Object.values(allSpots)
 
-    console.log('allspots', spots)
+    // console.log('allspots', spots)
 
-    useEffect(() => {
-        dispatch(getAllSpots())
-    }, [dispatch])
 
     return (
         <section>
             <div className="all-spots-div">
             {spots.map((spot) => (
-                <>
-                {console.log('inside the map', spot)}
+
              <SpotEach
                 spot={spot}
                 key={spot.id}
              />
-             </>
              ))}
             </div>
         </section>

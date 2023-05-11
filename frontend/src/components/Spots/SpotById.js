@@ -13,9 +13,11 @@ const SpotById = () => {
     const sessionUser = useSelector(state => state.session.user);
 
     const spot = useSelector(state => state.spots.singleSpot)
-    const reviews = useSelector(state => state.reviews.spot.Reviews)
+    const theReviews = useSelector(state => state.reviews.spot)
+    const reviews = Object.values(theReviews)
 
-    console.log('this is spot', spot)
+    // console.log('this is spot', spot)
+    // console.log('this is reviews', reviews)
 
     //if user did NOT post a review yet
     const didNotPostYet = () => {
@@ -25,6 +27,13 @@ const SpotById = () => {
         })
         return didNotPost
     }
+
+    const handleClick = (e) => {
+        e.preventDefault();
+
+
+        return alert("Feature coming soon")
+    };
 
     useEffect(() => {
         dispatch(getSpot(spotId))
@@ -48,7 +57,7 @@ const SpotById = () => {
         <>
             <h2>{spot.name}</h2>
             <h4>{spot.city}, {spot.state}, {spot.country}</h4>
-            <img src={spot.SpotImages[0].url ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Home Image'/>
+            <img src={spot.SpotImages[0] ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Home Image'/>
             <div className='middle-section-spot-id'>
                 <div className='left-side-spot-id'>
                     <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
@@ -59,7 +68,7 @@ const SpotById = () => {
                         <div>${spot.price} night</div>
                         <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} • {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}</div>
                     </div>
-                    <button>Reserve</button>
+                    <button onClick={handleClick}>Reserve</button>
                 </div>
             </div>
             <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} • {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}</div>
