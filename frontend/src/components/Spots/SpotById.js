@@ -48,7 +48,7 @@ const SpotById = () => {
         <>
             <h2>{spot.name}</h2>
             <h4>{spot.city}, {spot.state}, {spot.country}</h4>
-            <img src={spot.SpotImages[0].url} alt='Home Image'/>
+            <img src={spot.SpotImages[0].url ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Home Image'/>
             <div className='middle-section-spot-id'>
                 <div className='left-side-spot-id'>
                     <h2>Hosted by {spot.Owner.firstName} {spot.Owner.lastName}</h2>
