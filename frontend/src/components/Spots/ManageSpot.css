@@ -1,0 +1,10 @@
+.big-div {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.div-contents-flex {
+    width: 200px;
+    height: 250px;
+    margin: 25px 10px;
+}

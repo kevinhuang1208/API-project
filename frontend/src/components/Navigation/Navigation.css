@@ -16,8 +16,15 @@ ul > .right-nav > li {
     display: flex;
 }
 
+.navlink {
+    text-decoration: none;
+    color: black;
+}
+
 .create-spot {
     margin-right: 10px;
+    text-decoration: none;
+    color: black;
 }
 
 ul {

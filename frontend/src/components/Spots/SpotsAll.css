@@ -1,7 +1,7 @@
 .all-spots-div {
     display: flex;
     flex-wrap: wrap;
-    margin: 25px 65px;
+    margin: 25px 50px;
 }
 
 .div-contents-flex {

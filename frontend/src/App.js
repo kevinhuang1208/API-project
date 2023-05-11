@@ -7,6 +7,8 @@ import Navigation from "./components/Navigation";
 import SpotsAll from "./components/Spots/SpotsAll";
 import SpotById from "./components/Spots/SpotById";
 import CreateSpot from "./components/Spots/CreateSpot";
+import ManageSpot from "./components/Spots/ManageSpot";
+import EditSpot from "./components/Spots/EditSpot";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +26,12 @@ function App() {
 
           </Route>
           <Route path='/spots/new' component={CreateSpot}>
+
+          </Route>
+          <Route path='/spots/current' component={ManageSpot}>
+
+          </Route>
+          <Route exact path='/spots/:spotId/edit' component={EditSpot}>
 
           </Route>
           <Route exact path='/spots/:spotId' component={SpotById}>
