@@ -8,3 +8,7 @@
     height: 250px;
     margin: 25px 10px;
 }
+
+.buttons > button > li{
+    list-style-type: none;
+}
