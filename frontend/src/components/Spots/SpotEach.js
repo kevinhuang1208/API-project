@@ -5,6 +5,7 @@ import "./SpotsAll.css"
 const SpotEach = ({spot}) => {
 
     if(!spot.avgRating) return null
+    console.log('why isnt it updating', spot)
 
     return (
         <div className="div-contents-flex">

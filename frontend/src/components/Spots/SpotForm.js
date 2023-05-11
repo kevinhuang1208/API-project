@@ -24,6 +24,8 @@ const SpotForm = ({ formType }) => {
     const urls = [url, url2, url3, url4, url5]
     // console.log(urls)
 
+
+
     useEffect(() => {
         let errors = [];
         if (!country.length) errors.push("Country is required");
@@ -40,6 +42,13 @@ const SpotForm = ({ formType }) => {
 
     const dispatch = useDispatch()
     const {spotId} = useParams()
+
+
+    const theSpot = useSelector(state=>state.spots.allSpots[spotId])
+    // //conditoinals to prepopulate inputs
+
+
+    // console.log('here is the spot in spotsform', theSpot)
 
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -80,6 +89,7 @@ const SpotForm = ({ formType }) => {
       }
 
       if (formType==="Edit Spot") {
+        // const theSpot = useSelector(state=>state.spots.allSpots[spotId])
 
         const alteredSpot = {
             country,
@@ -92,6 +102,15 @@ const SpotForm = ({ formType }) => {
         }
         dispatch(editSpot(alteredSpot, spotId))
         if(spotId) {
+            setCountry("")
+            setAddress("")
+            setCity("")
+            setState("")
+            setDescription("")
+            setName("")
+            setPrice("")
+            setValidationErrors([]);
+            setHasSubmitted(false);
             history.push(`/spots/${spotId}`)
         }
       }
@@ -115,12 +134,21 @@ const SpotForm = ({ formType }) => {
                      </div>
                     )}
             <div>
+            {formType==="Edit Spot" ?
+            <input
+                type="text"
+                value={theSpot.country}
+                onChange={(e) => setCountry(e.target.value)}
+                placeholder='Country'
+            />
+            :
             <input
                 type="text"
                 value={country}
                 onChange={(e) => setCountry(e.target.value)}
                 placeholder='Country'
             />
+                    }
             </div>
         </label>
         </div>
@@ -223,11 +251,13 @@ const SpotForm = ({ formType }) => {
         <h3>Set a base price for your spot</h3>
         <p>Competitive pricing can help your listing stand out and rank higher in search results</p>
 
+        {/* {formType==="Edit Spot" ?
+        <>
         <div> $
         <input
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-            placeholder='Price per night (USD)'
+            value={spotPrice}
+            onChange={(e) => setSpotPrice(e.target.value)}
+            placeholder='Price per Night (USD)'
             />
         </div>
         <div>
@@ -240,7 +270,29 @@ const SpotForm = ({ formType }) => {
                 </div>
             )}
         </div>
+        </>
+        : */}
+        <>
+        <div> $
+        <input
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            placeholder='Price per Night (USD)'
+            />
+        </div>
+        <div>
+            {hasSubmitted && validationErrors.length > 0 && (
+                <div>
+                    {validationErrors.map((error) => {
+                        if(error === "Price is required") return error
+                        }
+                    )}
+                </div>
+            )}
+        </div>
+        </>
 
+                    {/* } */}
         {formType==="Create Spot" ?
         <div>
         <h3>Liven up your spot with photos</h3>
