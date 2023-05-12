@@ -5,6 +5,7 @@ import { getSpot } from '../../store/spots';
 import { deleteReview, getReviews } from '../../store/reviews';
 import PostReviewModal from '../PostReviewModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import DeleteReviewModal from './DeleteReview';
 import './SpotById.css'
 
 const SpotById = () => {
@@ -16,10 +17,11 @@ const SpotById = () => {
     const spot = useSelector(state => state.spots.singleSpot)
 
     const theReviews = useSelector(state => state.reviews.spot)
-    const losReviews = Object.values(theReviews)
     const reviews = Object.values(theReviews)
-    console.log('this is losReviews', losReviews)
+    const losReviews = Object.values(theReviews)
+    console.log('this is the reviews', theReviews)
     console.log('this is reviews', reviews)
+    console.log('this is losReviews', losReviews)
 
 
     // console.log(spot)
@@ -48,6 +50,21 @@ const SpotById = () => {
 
     //     return dispatch(deleteReview(spot.id))
     // };
+
+    const convertToMonth = (numString) => {
+        if(numString === "01") return "January"
+        if(numString === "02") return "February"
+        if(numString === "03") return "March"
+        if(numString === "04") return "April"
+        if(numString === "05") return "May"
+        if(numString === "06") return "June"
+        if(numString === "07") return "July"
+        if(numString === "08") return "August"
+        if(numString === "09") return "September"
+        if(numString === "10") return "October"
+        if(numString === "11") return "November"
+        if(numString === "12") return "December"
+    }
 
     useEffect(() => {
         dispatch(getSpot(spotId))
@@ -94,23 +111,30 @@ const SpotById = () => {
             <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} {!reviews.length ? null : reviews && (reviews.length = 1) ? <>• {reviews.length} review</> : <>• {reviews.length} reviews</>}</div>
             {/*• {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}*/}
             {/*below is logic for Post Your Review*/}
-            {sessionUser && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <OpenModalMenuItem
+            {sessionUser && reviews.length > 0 && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <OpenModalMenuItem
               itemText="Post Your Review"
               modalComponent={<PostReviewModal spot={spot} key={spot.id}/>}
-            /> : null}
+            /> :
+            sessionUser && reviews.length < 1 && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <OpenModalMenuItem
+              itemText="Be the first to post a review!"
+              modalComponent={<PostReviewModal spot={spot} key={spot.id}/>}
+            /> :
+            null}
             <div className='reviews-spot-id'>
                 {reviews.map((review) => {
-                     const handleDeleteClick = (e) => {
-                        e.preventDefault();
-
-
-                        return dispatch(deleteReview(review.id))
-                    };
                     return <>
                     <div>{review.User.firstName}</div>
-                    <div>{review.createdAt.slice(5, 7)} {review.createdAt.slice(0, 4)}</div>
+                    <div>{convertToMonth(review.createdAt.slice(5, 7))} {review.createdAt.slice(0, 4)}</div>
                     <div>{review.review}</div>
-                    {sessionUser && (sessionUser.id === review.userId) ? <button onClick={handleDeleteClick}>Delete</button> : null}
+                    {sessionUser && (sessionUser.id === review.userId) ?
+                    <button>
+                        <OpenModalMenuItem
+                            className='delete-button'
+                            itemText="Delete"
+                            modalComponent={<DeleteReviewModal review={review} key={review.id}
+                            />}
+                    />
+                    </button> : null}
                     </>
                 })}
 
