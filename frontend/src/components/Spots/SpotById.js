@@ -17,6 +17,8 @@ const SpotById = () => {
     const theReviews = useSelector(state => state.reviews.spot)
     const reviews = Object.values(theReviews)
 
+    // console.log(spot)
+    // console.log('review length?', reviews.length)
     // console.log('this is spot', spot)
     // console.log('this is reviews', reviews)
 
@@ -73,12 +75,13 @@ const SpotById = () => {
                 <div className='right-side-spot-id'>
                     <div className='top-right-side-spot-id'>
                         <div>${spot.price} night</div>
-                        <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} • {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}</div>
+                        <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} {!reviews.length ? null : reviews && (reviews.length = 1) ? <>• {reviews.length} review</> : <>• {reviews.length} reviews</>}</div>
                     </div>
                     <button onClick={handleClick}>Reserve</button>
                 </div>
             </div>
-            <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} • {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}</div>
+            <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} {!reviews.length ? null : reviews && (reviews.length = 1) ? <>• {reviews.length} review</> : <>• {reviews.length} reviews</>}</div>
+            {/*• {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}*/}
             {/*below is logic for Post Your Review*/}
             {sessionUser && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <OpenModalMenuItem
               itemText="Post Your Review"
