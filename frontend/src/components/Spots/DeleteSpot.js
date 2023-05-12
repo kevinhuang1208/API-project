@@ -4,6 +4,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteSpot, getOwnerSpots } from "../../store/spots";
+import "./DeleteSpot.css"
 
 
 const DeleteSpotModal = ({spot}) => {
@@ -25,9 +26,11 @@ const DeleteSpotModal = ({spot}) => {
     return (
         <>
           <h1>Confirm Delete</h1>
-          <>Are you sure you want to remove this spot from the listings?</>
-          <button onClick={handleClick}>Yes (Delete Spot)</button>
-          <button onClick={closeModal}>No (Keep Spot)</button>
+          <div className="random-text">Are you sure you want to remove this spot from the listings?</div>
+          <div className="delete-two-buttons">
+            <button onClick={handleClick}>Yes (Delete Spot)</button>
+            <button onClick={closeModal}>No (Keep Spot)</button>
+          </div>
         </>
       );
 }

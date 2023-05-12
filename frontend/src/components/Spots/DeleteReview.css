@@ -1,0 +1,17 @@
+.delete-review-two-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 30px
+}
+
+.delete-review-two-buttons > button {
+    background-color: lightgray;
+    padding: 30px;
+    width: 250px;
+    border-radius: 25px;
+}
+
+
+.random-text {
+    text-align: center;
+}

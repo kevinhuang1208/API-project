@@ -2,7 +2,17 @@
     display: flex;
     flex-direction: row;
     margin-right: 4px;
+    justify-content: center;
+    padding: 20px 0px;
   }
+
+.rating-input > span {
+  font-size: 26px;
+}
+
+.rating-input > div > i {
+  font-size: 26px;
+}
 
 .rating-input .filled {
     color: black;
@@ -10,4 +20,10 @@
 
 .rating-input .empty {
     color: lightgray;
+}
+
+.submit-review-button > button {
+  padding: 10px;
+  border-radius: 25px;
+  background-color: lightgray;
 }
