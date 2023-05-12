@@ -50,10 +50,10 @@ const validateSpot = [
     check('review')
       .exists({ checkFalsy: true })
       .withMessage('Review text is required'),
-    check('stars')
-    .isNumeric()
-    .isIn([1, 2, 3, 4, 5])
-    .withMessage('Stars must be an integer from 1 to 5'),
+    // check('stars')
+    // .isNumeric()
+    // .isIn([1, 2, 3, 4, 5])
+    // .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
   ];
 
