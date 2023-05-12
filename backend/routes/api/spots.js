@@ -300,6 +300,8 @@ router.post('/:id/reviews', requireAuth, validateReview, async (req, res) => {
     }
   })
 
+
+
   const {review, stars} = req.body
 
 
@@ -324,7 +326,14 @@ router.post('/:id/reviews', requireAuth, validateReview, async (req, res) => {
     stars
   })
 
-  res.json(newReview)
+  const associations = await Review.findByPk(newReview.id, {
+    include: [
+      {model: User, attributes: {exclude: ['username', 'hashedPassword', 'email', 'createdAt', 'updatedAt']}},
+      {model: ReviewImage, attributes: {exclude: ['reviewId', 'createdAt', 'updatedAt']}}
+    ]
+  })
+
+  res.json(associations)
 })
 
 //creating a booking from a spot based on spotid

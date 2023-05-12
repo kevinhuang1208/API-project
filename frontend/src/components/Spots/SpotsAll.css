@@ -12,6 +12,7 @@
 
 .each-link {
     position: relative;
+    text-decoration: none;
 }
 
 .each-link:hover .tooltip {
@@ -35,3 +36,11 @@ img {
     width: 200px;
     height: 200px;
 }
+
+.left-side-description {
+    color: black;
+}
+
+/* .each-link {
+   text-decoration: none;
+} */

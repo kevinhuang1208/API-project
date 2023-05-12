@@ -18,17 +18,18 @@ const SpotById = () => {
 
     const theReviews = useSelector(state => state.reviews.spot)
 
-    const valueReviews = Object.values(theReviews)
+    const reviewsReversed = Object.values(theReviews).reverse()
 
-    console.log('this is the reviews', theReviews)
+    // console.log('this is the reviews', theReviews)
 
-    console.log('this is valuereviews', valueReviews)
+    // console.log('this is spot', spot)
+    // console.log('this is reviews', Object.values(theReviews))
 
 
     //if user did NOT post a review yet
     const didNotPostYet = () => {
         let didNotPost = true
-        valueReviews.forEach((review) => {
+        Object.values(theReviews).forEach((review) => {
             if(review.User.id === sessionUser.id) didNotPost = false
         })
         return didNotPost
@@ -62,13 +63,13 @@ const SpotById = () => {
     }, [dispatch, spotId])
 
 
-    if(!spot) return null
+    // if(!spot) return null
     if(Object.values(spot).length === 0) {
         return null;
       }
 
 
-    if(!valueReviews) return null
+    if(!Object.values(theReviews)) return null
     // if(Object.values(reviews).length === 0) {
     //       return null;
     //     }
@@ -93,25 +94,26 @@ const SpotById = () => {
                 <div className='right-side-spot-id'>
                     <div className='top-right-side-spot-id'>
                         <div>${spot.price} night</div>
-                        <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} {!valueReviews.length ? null : valueReviews && (valueReviews.length = 1) ? <>• {valueReviews.length} review</> : <>• {valueReviews.length} reviews</>}</div>
+                        <div>⭐{Object.values(theReviews) ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}</div>
                     </div>
                     <button onClick={handleClick}>Reserve</button>
                 </div>
             </div>
-            <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} {!valueReviews.length ? null : valueReviews && (valueReviews.length = 1) ? <>• {valueReviews.length} review</> : <>• {valueReviews.length} reviews</>}</div>
+            <div>⭐{Object.values(theReviews) ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}</div>
+            {/*spot.avgStarRating ? spot.avgStarRating.toFixed(1)*/}
             {/*• {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}*/}
             {/*below is logic for Post Your Review*/}
-            {sessionUser && valueReviews.length > 0 && (sessionUser.id !== spot.ownerId) && didNotPostYet(valueReviews) ? <OpenModalMenuItem
+            {sessionUser && Object.values(theReviews).length > 0 && (sessionUser.id !== spot.ownerId) && didNotPostYet(Object.values(theReviews)) ? <OpenModalMenuItem
               itemText="Post Your Review"
               modalComponent={<PostReviewModal spot={spot} key={spot.id}/>}
             /> :
-            sessionUser && valueReviews.length < 1 && (sessionUser.id !== spot.ownerId) && didNotPostYet(valueReviews) ? <OpenModalMenuItem
+            sessionUser && Object.values(theReviews).length < 1 && (sessionUser.id !== spot.ownerId) && didNotPostYet(Object.values(theReviews)) ? <OpenModalMenuItem
               itemText="Be the first to post a review!"
               modalComponent={<PostReviewModal spot={spot} key={spot.id}/>}
             /> :
             null}
             <div className='reviews-spot-id'>
-                {valueReviews.map((review) => {
+                {reviewsReversed.map((review) => {
                     return <>
                     <div>{review.User.firstName}</div>
                     <div>{convertToMonth(review.createdAt.slice(5, 7))} {review.createdAt.slice(0, 4)}</div>
