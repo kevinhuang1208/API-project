@@ -1,0 +1,11 @@
+.delete-two-buttons {
+    text-align: center;
+
+}
+
+.delete-two-buttons > button {
+    margin: 25px;
+    background-color: lightgray;
+    padding: 20px;
+    border-radius: 25px;
+}

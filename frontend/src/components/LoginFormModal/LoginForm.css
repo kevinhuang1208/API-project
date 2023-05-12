@@ -1,0 +1,18 @@
+.username-email {
+    padding-bottom: 10px;
+}
+
+#modal-content > .demo-button {
+    text-align: center;
+}
+
+#modal-content > .demo-button > button {
+    background-color: lightgray;
+    padding: 30px 40px;
+    border-radius: 50px;
+    font-size: 20px;
+}
+
+form > .log-in-button {
+    padding-top: 10px;
+}

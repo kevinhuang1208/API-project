@@ -94,30 +94,38 @@ const SpotById = () => {
                 <div className='right-side-spot-id'>
                     <div className='top-right-side-spot-id'>
                         <div>${spot.price} night</div>
-                        <div>⭐{Object.values(theReviews) ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}</div>
+                        <div>⭐{Object.values(theReviews).length > 0 ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}</div>
                     </div>
+                    <div className='reserve-button'>
                     <button onClick={handleClick}>Reserve</button>
+                    </div>
                 </div>
             </div>
-            <div>⭐{Object.values(theReviews) ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}</div>
-            {/*spot.avgStarRating ? spot.avgStarRating.toFixed(1)*/}
-            {/*• {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}*/}
+            <div className='second-star'>
+                ⭐{Object.values(theReviews).length > 0 ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}
+            </div>
+
             {/*below is logic for Post Your Review*/}
+            <div className='make-review'>
             {sessionUser && Object.values(theReviews).length > 0 && (sessionUser.id !== spot.ownerId) && didNotPostYet(Object.values(theReviews)) ? <OpenModalMenuItem
+              className='make-review-button'
               itemText="Post Your Review"
               modalComponent={<PostReviewModal spot={spot} key={spot.id}/>}
             /> :
             sessionUser && Object.values(theReviews).length < 1 && (sessionUser.id !== spot.ownerId) && didNotPostYet(Object.values(theReviews)) ? <OpenModalMenuItem
+              className='make-review-button'
               itemText="Be the first to post a review!"
               modalComponent={<PostReviewModal spot={spot} key={spot.id}/>}
             /> :
             null}
+            </div>
+
             <div className='reviews-spot-id'>
                 {reviewsReversed.map((review) => {
                     return <>
-                    <div>{review.User.firstName}</div>
+                    <div className='name-review'>{review.User.firstName}</div>
                     <div>{convertToMonth(review.createdAt.slice(5, 7))} {review.createdAt.slice(0, 4)}</div>
-                    <div>{review.review}</div>
+                    <div className='review-review'>{review.review}</div>
                     {sessionUser && (sessionUser.id === review.userId) ?
                     <button>
                         <OpenModalMenuItem

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage, changeSpot, createSpot, editSpot } from '../../store/spots';
-import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
+import './SpotForm.css'
 
 const SpotForm = ({ formType }) => {
     const history = useHistory();
@@ -124,7 +124,7 @@ const SpotForm = ({ formType }) => {
         <h3>Where's your place located?</h3>
         <p>Guests will only get your exact address once they booked a reservation.</p>
 
-        <div>
+        <div className='country'>
             <label>
             Country  {hasSubmitted && validationErrors.length > 0 && (
                     <div>
@@ -144,7 +144,8 @@ const SpotForm = ({ formType }) => {
             </div>
         </label>
         </div>
-        <div>
+
+        <div className='street-address'>
             <label>
             Street Address {hasSubmitted && validationErrors.length > 0 && (
                     <div>
@@ -164,7 +165,8 @@ const SpotForm = ({ formType }) => {
             </div>
             </label>
         </div>
-        <div>
+
+        <div className='city-and-state'>
             <label>
             City {hasSubmitted && validationErrors.length > 0 && (
                     <div>
@@ -272,7 +274,7 @@ const SpotForm = ({ formType }) => {
 
                     {/* } */}
         {formType==="Create Spot" ?
-        <div>
+        <div className='img1'>
         <h3>Liven up your spot with photos</h3>
         <p>Submit a link to at least one photo to publish your spot</p>
 
@@ -291,28 +293,28 @@ const SpotForm = ({ formType }) => {
                 </div>
             )}
         </div>
-        <div>
+        <div className='img2'>
         <input
             value={url2.url}
             onChange={(e) => setUrl2({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
         </div>
-        <div>
+        <div className='img3'>
         <input
             value={url3.url}
             onChange={(e) => setUrl3({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
         </div>
-        <div>
+        <div className='img4'>
         <input
             value={url4.url}
             onChange={(e) => setUrl4({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
         </div>
-        <div>
+        <div className='img5'>
         <input
             value={url5.url}
             onChange={(e) => setUrl5({url: e.target.value, preview: false})}
@@ -321,8 +323,9 @@ const SpotForm = ({ formType }) => {
         </div>
         </div>
         : <></> }
+        <div className='submit-form'>
         <button type="submit">{formType}</button>
-
+        </div>
 
       </form>
     );

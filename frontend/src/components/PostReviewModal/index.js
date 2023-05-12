@@ -89,7 +89,9 @@ function PostReviewModal({spot}) {
         <span>Stars</span>
     </div>
           {/*trial and error ends here*/}
+          <div className="submit-review-button">
           <button type="submit" disabled={!rating || review.length < 10 ? true : false}>Submit Your Review</button>
+          </div>
         </form>
       </>
     );
