@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import * as sessionActions from "../../store/session";
-import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import "./PostReview.css";
@@ -12,8 +11,7 @@ function PostReviewModal({spot}) {
     const [review, setReview] = useState("");
     const [rating, setRating] = useState("");
     const { closeModal } = useModal();
-    // const { spotId } = useParams()
-    console.log(typeof rating)
+
 
     const onChange = (number) => {
       setRating(number);
