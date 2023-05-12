@@ -2,7 +2,7 @@ import { Link, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpot } from '../../store/spots';
-import { getReviews } from '../../store/reviews';
+import { deleteReview, getReviews } from '../../store/reviews';
 import PostReviewModal from '../PostReviewModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import './SpotById.css'
@@ -14,13 +14,17 @@ const SpotById = () => {
     const sessionUser = useSelector(state => state.session.user);
 
     const spot = useSelector(state => state.spots.singleSpot)
+
     const theReviews = useSelector(state => state.reviews.spot)
+    const losReviews = Object.values(theReviews)
     const reviews = Object.values(theReviews)
+    console.log('this is losReviews', losReviews)
+    console.log('this is reviews', reviews)
+
 
     // console.log(spot)
     // console.log('review length?', reviews.length)
     // console.log('this is spot', spot)
-    // console.log('this is reviews', reviews)
 
     //if user did NOT post a review yet
     const didNotPostYet = () => {
@@ -37,6 +41,13 @@ const SpotById = () => {
 
         return alert("Feature coming soon")
     };
+
+    // const handleDeleteClick = (e) => {
+    //     e.preventDefault();
+
+
+    //     return dispatch(deleteReview(spot.id))
+    // };
 
     useEffect(() => {
         dispatch(getSpot(spotId))
@@ -85,14 +96,21 @@ const SpotById = () => {
             {/*below is logic for Post Your Review*/}
             {sessionUser && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <OpenModalMenuItem
               itemText="Post Your Review"
-              modalComponent={<PostReviewModal />}
+              modalComponent={<PostReviewModal spot={spot} key={spot.id}/>}
             /> : null}
             <div className='reviews-spot-id'>
                 {reviews.map((review) => {
+                     const handleDeleteClick = (e) => {
+                        e.preventDefault();
+
+
+                        return dispatch(deleteReview(review.id))
+                    };
                     return <>
                     <div>{review.User.firstName}</div>
                     <div>{review.createdAt.slice(5, 7)} {review.createdAt.slice(0, 4)}</div>
                     <div>{review.review}</div>
+                    {sessionUser && (sessionUser.id === review.userId) ? <button onClick={handleDeleteClick}>Delete</button> : null}
                     </>
                 })}
 
