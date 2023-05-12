@@ -83,7 +83,7 @@ export const addImage = (url) => ({
         }
 
         if(response.ok) {
-            dispatch(addSpot(aSpot, array))
+            await dispatch(addSpot(aSpot, array))
             return aSpot
         }
     }
@@ -138,8 +138,8 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
         //     return {...state, singleSpot: action.url}
         case EDIT_SPOT:
             const editSpot = {...state, singleSpot: {...state.singleSpot}, allSpots: {...state.allSpots}}
-            newSpot.singleSpot[action.spot.id] = action.spot
-            newSpot.allSpots[action.spot.id] = action.spot
+            editSpot.singleSpot[action.spot.id] = action.spot
+            editSpot.allSpots[action.spot.id] = action.spot
             newState = editSpot
             return newState
         case DELETE_SPOT:
