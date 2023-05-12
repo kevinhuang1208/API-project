@@ -17,21 +17,18 @@ const SpotById = () => {
     const spot = useSelector(state => state.spots.singleSpot)
 
     const theReviews = useSelector(state => state.reviews.spot)
-    const reviews = Object.values(theReviews)
-    const losReviews = Object.values(theReviews)
+
+    const valueReviews = Object.values(theReviews)
+
     console.log('this is the reviews', theReviews)
-    console.log('this is reviews', reviews)
-    console.log('this is losReviews', losReviews)
 
+    console.log('this is valuereviews', valueReviews)
 
-    // console.log(spot)
-    // console.log('review length?', reviews.length)
-    // console.log('this is spot', spot)
 
     //if user did NOT post a review yet
     const didNotPostYet = () => {
         let didNotPost = true
-        reviews.forEach((review) => {
+        valueReviews.forEach((review) => {
             if(review.User.id === sessionUser.id) didNotPost = false
         })
         return didNotPost
@@ -43,13 +40,6 @@ const SpotById = () => {
 
         return alert("Feature coming soon")
     };
-
-    // const handleDeleteClick = (e) => {
-    //     e.preventDefault();
-
-
-    //     return dispatch(deleteReview(spot.id))
-    // };
 
     const convertToMonth = (numString) => {
         if(numString === "01") return "January"
@@ -77,11 +67,11 @@ const SpotById = () => {
         return null;
       }
 
-    if(!reviews) return null
+
+    if(!valueReviews) return null
     // if(Object.values(reviews).length === 0) {
     //       return null;
     //     }
-    // if(!spot.SpotImages) return null;
 
 
     return (
@@ -103,25 +93,25 @@ const SpotById = () => {
                 <div className='right-side-spot-id'>
                     <div className='top-right-side-spot-id'>
                         <div>${spot.price} night</div>
-                        <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} {!reviews.length ? null : reviews && (reviews.length = 1) ? <>• {reviews.length} review</> : <>• {reviews.length} reviews</>}</div>
+                        <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} {!valueReviews.length ? null : valueReviews && (valueReviews.length = 1) ? <>• {valueReviews.length} review</> : <>• {valueReviews.length} reviews</>}</div>
                     </div>
                     <button onClick={handleClick}>Reserve</button>
                 </div>
             </div>
-            <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} {!reviews.length ? null : reviews && (reviews.length = 1) ? <>• {reviews.length} review</> : <>• {reviews.length} reviews</>}</div>
+            <div>⭐{spot.avgStarRating ? spot.avgStarRating.toFixed(1) : <>New</>} {!valueReviews.length ? null : valueReviews && (valueReviews.length = 1) ? <>• {valueReviews.length} review</> : <>• {valueReviews.length} reviews</>}</div>
             {/*• {spot.numReviews} {spot.numReviews > 1 ? <>reviews</> : <>review</>}*/}
             {/*below is logic for Post Your Review*/}
-            {sessionUser && reviews.length > 0 && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <OpenModalMenuItem
+            {sessionUser && valueReviews.length > 0 && (sessionUser.id !== spot.ownerId) && didNotPostYet(valueReviews) ? <OpenModalMenuItem
               itemText="Post Your Review"
               modalComponent={<PostReviewModal spot={spot} key={spot.id}/>}
             /> :
-            sessionUser && reviews.length < 1 && (sessionUser.id !== spot.ownerId) && didNotPostYet(reviews) ? <OpenModalMenuItem
+            sessionUser && valueReviews.length < 1 && (sessionUser.id !== spot.ownerId) && didNotPostYet(valueReviews) ? <OpenModalMenuItem
               itemText="Be the first to post a review!"
               modalComponent={<PostReviewModal spot={spot} key={spot.id}/>}
             /> :
             null}
             <div className='reviews-spot-id'>
-                {reviews.map((review) => {
+                {valueReviews.map((review) => {
                     return <>
                     <div>{review.User.firstName}</div>
                     <div>{convertToMonth(review.createdAt.slice(5, 7))} {review.createdAt.slice(0, 4)}</div>
