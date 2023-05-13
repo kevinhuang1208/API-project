@@ -27,8 +27,6 @@ const SpotForm = ({ formType }) => {
     const [hasSubmitted, setHasSubmitted] = useState(false);
 
     const urls = [url, url2, url3, url4, url5]
-    // console.log(urls)
-
 
 
     useEffect(() => {
@@ -40,10 +38,14 @@ const SpotForm = ({ formType }) => {
         if(description.length < 30) errors.push("Description needs a minimum of 30 characters")
         if(!name.length) errors.push("Name is required")
         if(!price) errors.push("Price is required")
-        if(!Object.keys(url).length) errors.push("Preview image is required")
+        if(!url.url && formType==="Create Spot") errors.push("Preview image is required")
         if(url.url && !url.url.endsWith(".png") && !url.url.endsWith(".jpg") && !url.url.endsWith(".jpeg")) errors.push("Image URL must end in .png, .jpg, .jpeg")
+        if(url2.url && !url2.url.endsWith(".png") && !url2.url.endsWith(".jpg") && !url2.url.endsWith(".jpeg")) errors.push("Image URL2 must end in .png, .jpg, .jpeg")
+        if(url3.url && !url3.url.endsWith(".png") && !url3.url.endsWith(".jpg") && !url3.url.endsWith(".jpeg")) errors.push("Image URL3 must end in .png, .jpg, .jpeg")
+        if(url4.url && !url4.url.endsWith(".png") && !url4.url.endsWith(".jpg") && !url4.url.endsWith(".jpeg")) errors.push("Image URL4 must end in .png, .jpg, .jpeg")
+        if(url5.url && !url5.url.endsWith(".png") && !url5.url.endsWith(".jpg") && !url5.url.endsWith(".jpeg")) errors.push("Image URL5 must end in .png, .jpg, .jpeg")
         setValidationErrors(errors);
-    }, [country, address, city, state, description, name, price, url])
+    }, [country, address, city, state, description, name, price, url, url2, url3, url4, url5])
 
     const dispatch = useDispatch()
     // //conditoinals to prepopulate inputs
@@ -127,7 +129,7 @@ const SpotForm = ({ formType }) => {
         <div className='country'>
             <label>
             Country  {hasSubmitted && validationErrors.length > 0 && (
-                    <div>
+                    <div className='errors'>
                         {validationErrors.map((error) => {
                             if(error === "Country is required") return error
                         }
@@ -148,7 +150,7 @@ const SpotForm = ({ formType }) => {
         <div className='street-address'>
             <label>
             Street Address {hasSubmitted && validationErrors.length > 0 && (
-                    <div>
+                    <div className='errors'>
                         {validationErrors.map((error) => {
                             if(error === "Address is required") return error
                         }
@@ -169,7 +171,7 @@ const SpotForm = ({ formType }) => {
         <div className='city-and-state'>
             <label>
             City {hasSubmitted && validationErrors.length > 0 && (
-                    <div>
+                    <div className='errors'>
                         {validationErrors.map((error) => {
                             if(error === "City is required") return error
                         }
@@ -187,7 +189,7 @@ const SpotForm = ({ formType }) => {
 
             <label>
             State {hasSubmitted && validationErrors.length > 0 && (
-                    <div>
+                    <div className='errors'>
                         {validationErrors.map((error) => {
                             if(error === "State is required") return error
                         }
@@ -217,7 +219,7 @@ const SpotForm = ({ formType }) => {
 
         <div>
             {hasSubmitted && validationErrors.length > 0 && (
-                <div>
+                <div className='errors'>
                     {validationErrors.map((error) => {
                         if(error === "Description needs a minimum of 30 characters") return error
                         }
@@ -238,7 +240,7 @@ const SpotForm = ({ formType }) => {
         />
         <div>
             {hasSubmitted && validationErrors.length > 0 && (
-                <div>
+                <div className='errors'>
                     {validationErrors.map((error) => {
                         if(error === "Name is required") return error
                         }
@@ -262,7 +264,7 @@ const SpotForm = ({ formType }) => {
         </div>
         <div>
             {hasSubmitted && validationErrors.length > 0 && (
-                <div>
+                <div className='errors'>
                     {validationErrors.map((error) => {
                         if(error === "Price is required") return error
                         }
@@ -283,22 +285,31 @@ const SpotForm = ({ formType }) => {
              onChange={(e) => setUrl({url: e.target.value, preview: true})}
             placeholder='Preview Image URL'
             />
-        <div>
+
             {hasSubmitted && validationErrors.length > 0 && (
-                <div>
+                <div className='errors'>
                     {validationErrors.map((error) => {
                         if(error === "Preview image is required") return error
+                        if(error === "Image URL must end in .png, .jpg, .jpeg") return error
                         }
                     )}
                 </div>
             )}
-        </div>
+
         <div className='img2'>
         <input
             value={url2.url}
             onChange={(e) => setUrl2({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
+        {hasSubmitted && validationErrors.length > 0 && (
+                <div className='errors'>
+                    {validationErrors.map((error) => {
+                        if(error === "Image URL2 must end in .png, .jpg, .jpeg") return error
+                        }
+                    )}
+                </div>
+            )}
         </div>
         <div className='img3'>
         <input
@@ -306,6 +317,14 @@ const SpotForm = ({ formType }) => {
             onChange={(e) => setUrl3({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
+         {hasSubmitted && validationErrors.length > 0 && (
+                <div className='errors'>
+                    {validationErrors.map((error) => {
+                        if(error === "Image URL3 must end in .png, .jpg, .jpeg") return error
+                        }
+                    )}
+                </div>
+            )}
         </div>
         <div className='img4'>
         <input
@@ -313,6 +332,14 @@ const SpotForm = ({ formType }) => {
             onChange={(e) => setUrl4({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
+         {hasSubmitted && validationErrors.length > 0 && (
+                <div className='errors'>
+                    {validationErrors.map((error) => {
+                        if(error === "Image URL4 must end in .png, .jpg, .jpeg") return error
+                        }
+                    )}
+                </div>
+            )}
         </div>
         <div className='img5'>
         <input
@@ -320,6 +347,14 @@ const SpotForm = ({ formType }) => {
             onChange={(e) => setUrl5({url: e.target.value, preview: false})}
             placeholder='Image URL'
         />
+         {hasSubmitted && validationErrors.length > 0 && (
+                <div className='errors'>
+                    {validationErrors.map((error) => {
+                        if(error === "Image URL5 must end in .png, .jpg, .jpeg") return error
+                        }
+                    )}
+                </div>
+            )}
         </div>
         </div>
         : <></> }

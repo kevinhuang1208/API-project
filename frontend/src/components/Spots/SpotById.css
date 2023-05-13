@@ -106,6 +106,12 @@ h2 {
     padding-bottom: 5px;
 }
 
+.left-side-spot-id > p {
+    padding: 0px 25px 0px 0px;
+    width: 600px;
+    word-wrap: break-word;
+}
+
 .reviews-spot-id {
     margin-top: 10px;
     margin-bottom: 10px;
