@@ -33,8 +33,6 @@ const ManageSpot = () => {
     }
 
 
-    // console.log('this is a spot', spots)
-
     return(
         <div className="big-div">
         {spots.length ? spots.map((spot) =>

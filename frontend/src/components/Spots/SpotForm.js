@@ -48,10 +48,7 @@ const SpotForm = ({ formType }) => {
     }, [country, address, city, state, description, name, price, url, url2, url3, url4, url5])
 
     const dispatch = useDispatch()
-    // //conditoinals to prepopulate inputs
 
-
-    // console.log('here is the spot in spotsform', theSpot)
 
     const handleSubmit = async (e) => {
       e.preventDefault();

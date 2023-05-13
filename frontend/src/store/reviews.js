@@ -60,12 +60,10 @@ const reviewsReducer = (state = {spot: {}, user: {}}, action) => {
         case GET_REVIEWS:
           newState = {...state}
           const someReviews = {}
-          // console.log('from review reducer', action.reviews.Reviews)
           action.reviews.Reviews.map((review) => {
             someReviews[review.id] = review
           })
           newState.spot = someReviews
-          // console.log('newState from review reducer', newState)
           return newState
         case ADD_REVIEW:
           const newReview = {...state, spot: {...state.spot}, user: {...state.user}}

@@ -26,8 +26,6 @@ const SpotsAll = () => {
         return <h1>Loading...</h1>
     }
 
-    // console.log('allspots', spots)
-
 
     return (
         <section>

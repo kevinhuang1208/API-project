@@ -22,11 +22,6 @@ const SpotById = () => {
 
     const reviewsReversed = Object.values(theReviews).reverse()
 
-    // console.log('this is the reviews', theReviews)
-
-    // console.log('this is spot', spot)
-    // console.log('this is reviews', Object.values(theReviews))
-
 
     //if user did NOT post a review yet
     const didNotPostYet = () => {

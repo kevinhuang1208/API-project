@@ -51,7 +51,6 @@ export const addImage = (url) => ({
     export const getAllSpots = () => async (dispatch) => {
         const response = await fetch('/api/spots');
         const spots = await response.json();
-        // console.log('inside all spots thunk', spots)
         dispatch(loadSpots(spots));
     }
 
@@ -118,7 +117,6 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
         case LOAD_SPOTS:
             newState = {...state}
             const spotsState = {};
-            // console.log(action.spots)
             action.spots.Spots.map((spot) => {
                 spotsState[spot.id] = spot;
             })
@@ -132,10 +130,6 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
             newSpot.allSpots[action.spot.id] = action.spot
             newState = newSpot
             return newState
-        // case ADD_IMAGE:
-        //     newState = {...state}
-
-        //     return {...state, singleSpot: action.url}
         case EDIT_SPOT:
             const editSpot = {...state, singleSpot: {...state.singleSpot}, allSpots: {...state.allSpots}}
             editSpot.singleSpot[action.spot.id] = action.spot
