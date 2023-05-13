@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
 import { getOwnerSpots } from "../../store/spots"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from "./DeleteSpot";
@@ -10,6 +10,8 @@ const ManageSpot = () => {
 
     const dispatch = useDispatch()
 
+    const [isLoading, setIsLoading] = useState(true)
+
     const allSpots = useSelector(state=>state.spots.allSpots)
 
     const spots = Object.values(allSpots)
@@ -18,6 +20,17 @@ const ManageSpot = () => {
     useEffect(() => {
         dispatch(getOwnerSpots())
     }, [dispatch])
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 1000)
+    }, [])
+
+
+    if(isLoading) {
+        return <h1>Loading...</h1>
+    }
 
 
     // console.log('this is a spot', spots)

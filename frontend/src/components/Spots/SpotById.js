@@ -1,5 +1,5 @@
 import { Link, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpot } from '../../store/spots';
 import { deleteReview, getReviews } from '../../store/reviews';
@@ -11,6 +11,8 @@ import './SpotById.css'
 const SpotById = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
+    //test code
+    const [isLoading, setIsLoading] = useState(true)
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -62,6 +64,15 @@ const SpotById = () => {
         dispatch(getReviews(spotId))
     }, [dispatch, spotId])
 
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 5000)
+    }, [])
+
+    if(isLoading) {
+        return <h1>Loading (the photos)...</h1>
+    }
 
     // if(!spot) return null
     if(Object.values(spot).length === 0) {

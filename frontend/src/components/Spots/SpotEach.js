@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import "./SpotsAll.css"
 // import { useDispatch } from 'react-redux';
 
 const SpotEach = ({spot}) => {
+
 
     return (
         <div className="div-contents-flex">

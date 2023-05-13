@@ -41,3 +41,7 @@ textarea {
     padding: 10px;
     border-radius: 25px;
 }
+
+.errors {
+    color: red;
+}
