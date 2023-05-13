@@ -11,13 +11,18 @@ function Navigation({ isLoaded }){
   return (
     <ul>
       <li>
-        <NavLink exact to="/">Home</NavLink>
+        <NavLink className='navlink' exact to="/"><div className='logo-name'><img src='https://img.freepik.com/premium-vector/icon-kindness-charity-hand-heart-hand-hug-heart-symbol-valentines-day-love-hand-drawn_81863-4927.jpg'/> CareBnB</div></NavLink>
       </li>
+      <div className='right-nav'>
+      {sessionUser ? <li>
+        <NavLink className='create-spot' to="/spots/new">Create a New Spot</NavLink>
+      </li> : null}
       {isLoaded && (
         <li>
-          <ProfileButton user={sessionUser} />
+          <ProfileButton classname='profile' user={sessionUser} />
         </li>
       )}
+      </div>
     </ul>
   );
 }

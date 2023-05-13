@@ -1,0 +1,31 @@
+.big-div {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 25px 10px;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,215,223,1) 0%, rgba(255,221,233,1) 100%);
+    border-radius: 50px;
+}
+
+.div-contents-flex {
+    width: 200px;
+    height: 250px;
+    margin: 25px 10px;
+}
+
+.buttons > button > li{
+    list-style-type: none;
+}
+
+.buttons > button > a {
+    text-decoration: none;
+    color: black;
+}
+
+.buttons > button {
+    margin-right: 3px;
+    margin-left: 3px;
+}
+
+.buttons {
+    text-align: center;
+}

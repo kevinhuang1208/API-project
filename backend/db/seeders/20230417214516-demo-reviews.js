@@ -38,10 +38,16 @@ module.exports = {
       stars: 4
      },
      {
-      spotId: 5,
+      spotId: 4,
       userId: 1,
       review: 'Was not clean when we arrived. Needed to clean everything ourselves.',
       stars: 2
+     },
+     {
+      spotId: 5,
+      userId: 3,
+      review: 'Exquisite. Had everything we needed to have a good time.',
+      stars: 4
      },
      {
       spotId: 6,
@@ -108,6 +114,18 @@ module.exports = {
       userId: 4,
       review: 'It was a good home. Just a little too far from everywhere.',
       stars: 3
+     },
+     {
+      spotId: 17,
+      userId: 2,
+      review: 'Nothing much to rave about. It was just about average.',
+      stars: 3
+     },
+     {
+      spotId: 18,
+      userId: 1,
+      review: 'Best stay we could ever ask for! Family for 4 had the greatest time of their lives.',
+      stars: 5
      }
    ], {});
    },

@@ -28,12 +28,12 @@ const validateSpot = [
     check('country')
       .exists({ checkFalsy: true })
       .withMessage('Country is required'),
-    check('lat')
-      .isDecimal()
-      .withMessage('Latitude is not valid'),
-    check('lng')
-      .isDecimal()
-      .withMessage('Longitude is not valid'),
+    // check('lat')
+    //   .isDecimal()
+    //   .withMessage('Latitude is not valid'),
+    // check('lng')
+    //   .isDecimal()
+    //   .withMessage('Longitude is not valid'),
     check('name')
       .isLength({max: 49})
       .withMessage('Name must be less than 50 characters'),
@@ -50,10 +50,10 @@ const validateSpot = [
     check('review')
       .exists({ checkFalsy: true })
       .withMessage('Review text is required'),
-    check('stars')
-    .isNumeric()
-    .isIn([1, 2, 3, 4, 5])
-    .withMessage('Stars must be an integer from 1 to 5'),
+    // check('stars')
+    // .isNumeric()
+    // .isIn([1, 2, 3, 4, 5])
+    // .withMessage('Stars must be an integer from 1 to 5'),
     handleValidationErrors
   ];
 
@@ -300,6 +300,8 @@ router.post('/:id/reviews', requireAuth, validateReview, async (req, res) => {
     }
   })
 
+
+
   const {review, stars} = req.body
 
 
@@ -324,7 +326,14 @@ router.post('/:id/reviews', requireAuth, validateReview, async (req, res) => {
     stars
   })
 
-  res.json(newReview)
+  const associations = await Review.findByPk(newReview.id, {
+    include: [
+      {model: User, attributes: {exclude: ['username', 'hashedPassword', 'email', 'createdAt', 'updatedAt']}},
+      {model: ReviewImage, attributes: {exclude: ['reviewId', 'createdAt', 'updatedAt']}}
+    ]
+  })
+
+  res.json(associations)
 })
 
 //creating a booking from a spot based on spotid
@@ -469,7 +478,7 @@ router.get('/', async (req, res) => {
   let { page, size } = req.query
 
   if(!page) page = 1
-  if(!size) size = 20
+  // if(!size) size = 20
 
   page = parseInt(page);
   size = parseInt(size);
@@ -494,7 +503,7 @@ router.get('/', async (req, res) => {
   }
 
   if(page > 10) page = 10;
-  if(size > 20) size = 20;
+  // if(size > 20) size = 20;
 
   const pagination = {};
     if (page >= 1 && size >= 1) {

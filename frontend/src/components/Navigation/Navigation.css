@@ -1,3 +1,40 @@
 .hidden {
     display: none;
 }
+
+ul > li > .navlink > .logo-name > img {
+    height: 50px;
+    width: 50px;
+}
+
+.logo-name {
+    box-shadow: 0px -25px 20px -20px rgba(0, 0, 0, 0.45), 0px 25px 20px -20px rgba(0, 0, 0, 0.45), -25px 0 20px -20px rgba(0, 0, 0, 0.45);
+    border-radius: 8px;
+    background-color: white;
+}
+
+ul > li,
+ul > .right-nav > li {
+    list-style-type: none;
+}
+
+.right-nav {
+    display: flex;
+}
+
+.navlink {
+    text-decoration: none;
+    color: black;
+}
+
+.create-spot {
+    margin-right: 10px;
+    text-decoration: none;
+    color: black;
+}
+
+ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

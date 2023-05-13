@@ -1,0 +1,47 @@
+form {
+    text-align: center;
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,215,223,1) 0%, rgba(255,221,233,1) 100%);
+    border-radius: 50px;
+    padding: 50px 0px;
+}
+
+.country,
+.street-address {
+    padding-bottom: 5px;
+}
+
+.city-and-state {
+    padding-bottom: 15px;
+}
+
+textarea {
+    width: 500px;
+    height: 150px;
+}
+
+/* .street-address {
+    border: black solid 1px;
+
+} */
+.img1 > input,
+.img2 > input,
+.img3 > input,
+.img4 > input,
+.img5 > input
+ {
+    width: 400px;
+}
+
+.submit-form {
+   padding-top: 10px;
+}
+
+.submit-form > button {
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 25px;
+}
+
+.errors {
+    color: red;
+}
