@@ -1,7 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSpot } from '../../store/spots';
+import { getSpot, getAllSpots } from '../../store/spots';
 import { deleteReview, getReviews } from '../../store/reviews';
 import PostReviewModal from '../PostReviewModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
@@ -12,15 +12,37 @@ const SpotById = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     //test code
-    const [isLoading, setIsLoading] = useState(true)
+
 
     const sessionUser = useSelector(state => state.session.user);
 
-    const spot = useSelector(state => state.spots.singleSpot)
+    // const allTheSpots = useSelector(state => state.spots.allSpots)
+
+
+    // const allSpotsArr = Object.values(allTheSpots)
+
+    // console.log("THIS IS ALL THE SPOTS", allSpotsArr)
+
+    let spot = useSelector(state => state.spots.singleSpot)
 
     const theReviews = useSelector(state => state.reviews.spot)
 
     const reviewsReversed = Object.values(theReviews).reverse()
+
+    console.log("THIS IS SPOT USESELECTOR", spot)
+
+
+    useEffect(() => {
+        // dispatch(getAllSpots())
+        if (spotId) {
+            dispatch(getSpot(spotId))
+            dispatch(getReviews(spotId))
+        }
+
+        // return () => {
+        //     dispatch(getSpot())
+        // }
+    },[dispatch])
 
 
     //if user did NOT post a review yet
@@ -54,20 +76,7 @@ const SpotById = () => {
         if(numString === "12") return "December"
     }
 
-    useEffect(() => {
-        dispatch(getSpot(spotId))
-        dispatch(getReviews(spotId))
-    }, [dispatch, spotId])
-
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 5000)
-    }, [])
-
-    if(isLoading) {
-        return <h1>Loading (the photos)...</h1>
-    }
+    if(!spot.id) return <>Loading...</>;
 
     // if(!spot) return null
     if(Object.values(spot).length === 0) {
@@ -82,15 +91,17 @@ const SpotById = () => {
 
 
     return (
+
         <>
+
             <h2>{spot.name}</h2>
             <h4>{spot.city}, {spot.state}, {spot.country}</h4>
             <div className='grid'>
-            <img className='main' src={spot.SpotImages[0] ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Home Image'/>
-            <img className='photoone' src={spot.SpotImages[1] ? spot.SpotImages[1].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
-            <img className='phototwo' src={spot.SpotImages[2] ? spot.SpotImages[2].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
-            <img className='photothree' src={spot.SpotImages[3] ? spot.SpotImages[3].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
-            <img className='photofour' src={spot.SpotImages[4] ? spot.SpotImages[4].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
+            <img className='main' src={spot.SpotImages ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Home Image'/>
+            <img className='photoone' src={spot.SpotImages ? spot.SpotImages[1].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
+            <img className='phototwo' src={spot.SpotImages ? spot.SpotImages[2].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
+            <img className='photothree' src={spot.SpotImages ? spot.SpotImages[3].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
+            <img className='photofour' src={spot.SpotImages ? spot.SpotImages[4].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
             </div>
             <div className='middle-section-spot-id'>
                 <div className='left-side-spot-id'>
@@ -145,6 +156,7 @@ const SpotById = () => {
                 })}
 
             </div>
+
         </>
     )
 }
