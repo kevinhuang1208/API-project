@@ -56,8 +56,12 @@ export const addImage = (url) => ({
     export const getAllSpots = () => async (dispatch) => {
         const response = await fetch('/api/spots');
         const spots = await response.json();
-        await dispatch(loadSpots(spots));
-        return spots
+
+        if(response.ok) {
+            await dispatch(loadSpots(spots));
+            return spots
+
+        }
     }
 
     export const getOwnerSpots = () => async (dispatch) => {
@@ -148,6 +152,8 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
             newState = {...state, singleSpot: {...state.singleSpot}, allSpots: {...state.allSpots}}
             delete newState.allSpots[action.spotId]
             return newState
+        case 'RESET_STATE':
+            return {singleSpot: {}, allSpots: {}};
         default:
             return state
     }

@@ -39,9 +39,10 @@ const SpotById = () => {
             dispatch(getReviews(spotId))
         }
 
-        // return () => {
-        //     dispatch(getSpot())
-        // }
+        return () => {
+            dispatch({ type: 'RESET_STATE' });
+            // console.log("THIS IS INSIDE CLEANUP", spot)
+        }
     },[dispatch])
 
 
