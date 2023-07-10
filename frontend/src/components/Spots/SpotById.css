@@ -66,8 +66,8 @@ h2 {
     padding-bottom: 20px;
 }
 
-.right-side-spot-id > .reserve-button > button {
-    width: 300px;
+.link-reserve-button {
+    width: 60%;
     height: 50px;
     background-color: salmon;
     color: white;

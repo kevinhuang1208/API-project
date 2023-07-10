@@ -7,6 +7,7 @@ import PostReviewModal from '../PostReviewModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteReviewModal from './DeleteReview';
 import './SpotById.css'
+import CreateBooking from '../Bookings/CreateBooking';
 
 const SpotById = () => {
     const { spotId } = useParams();
@@ -55,12 +56,12 @@ const SpotById = () => {
         return didNotPost
     }
 
-    const handleClick = (e) => {
-        e.preventDefault();
+    // const handleClick = (e) => {
+    //     e.preventDefault();
 
 
-        return alert("Feature coming soon")
-    };
+    //     return alert("Feature coming soon")
+    // };
 
     const convertToMonth = (numString) => {
         if(numString === "01") return "January"
@@ -115,7 +116,11 @@ const SpotById = () => {
                         <div>⭐{Object.values(theReviews).length > 0 ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}</div>
                     </div>
                     <div className='reserve-button'>
-                    <button onClick={handleClick}>Reserve</button>
+                    <OpenModalMenuItem
+                        className='make-reserve-button'
+                        itemText="Reserve"
+                        modalComponent={<CreateBooking spot={spot} key={spot.id}/>}
+                    />
                     </div>
                 </div>
             </div>

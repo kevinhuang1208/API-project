@@ -16,7 +16,7 @@ ul > li > button {
     border: 1px solid black;
 }
 
-ul > li > .manage-spots {
+ul > li > .manage-spots, ul > li > .manage-bookings {
     color: black;
     text-decoration: none;
 }
