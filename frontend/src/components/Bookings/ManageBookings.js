@@ -49,7 +49,9 @@ const ManageBookings = () => {
                             <div className="endDateSpotBooking">End Date: {booking ? booking.endDate : <>...</>}</div>
                         </div>
                         <div className="imgEachBooking">
-                            <img src={booking.Spot ? booking.Spot.previewImage : <>Loading image...</>}/>
+                            <Link className='linkToSpotId' to={`/spots/${booking.spotId}`}>
+                                <img src={booking.Spot ? booking.Spot.previewImage : <>Loading image...</>}/>
+                            </Link>
                         </div>
                     </div>
                     <div className="editAndDeleteBookingContainer">
@@ -60,7 +62,7 @@ const ManageBookings = () => {
                             modalComponent={<EditBooking booking={booking} key={booking.id}/>}
                             />
                         </div>
-                        <div className="deleteBookingButton">
+                        <div className="deleteBookingButtonDiv">
                             <OpenModalMenuItem
                             className='deleteBookingActualButton'
                             itemText="Delete Booking"

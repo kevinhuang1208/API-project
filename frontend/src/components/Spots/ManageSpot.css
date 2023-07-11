@@ -1,8 +1,8 @@
 .big-div {
     display: flex;
     flex-wrap: wrap;
-    padding: 25px 10px;
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,215,223,1) 0%, rgba(255,221,233,1) 100%);
+    justify-content: center;
+    gap: 25px;
     border-radius: 50px;
 }
 
@@ -19,8 +19,25 @@
 .buttons > button {
     margin-right: 3px;
     margin-left: 3px;
+    background-color: white;
+    border: black solid 1px;
+    cursor: pointer;
 }
 
 .buttons {
     text-align: center;
+}
+
+.cityStateManage, .priceManage {
+    font-weight: bold;
+    text-align: left;
+}
+
+.cityStateManage {
+    max-width: 200px;
+}
+
+.starRatingManage {
+    font-weight: bold;
+    color: black;
 }

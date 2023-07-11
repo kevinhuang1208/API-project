@@ -1,4 +1,79 @@
+.eachBookingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
 .detailsBookingContainer {
     display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: solid lightgray 2px;
+    border-radius: 10px;
+    width: 80%;
+}
+
+.nameSpotBooking, .locationSpotBooking, .startDateSpotBooking, .endDateSpotBooking {
+    font-size: 20px;
+}
+
+.editAndDeleteBookingContainer {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 25%;
+}
+
+.editBookingButtonDiv > li, .deleteBookingButtonDiv > li {
+    list-style-type: none;
+    padding: 5px;
+    cursor: pointer;
+    border: solid lightgray 2px;
+}
+
+.react-datepicker-wrapper {
+    width: 40%;
+}
+
+.react-datepicker__input-container > input {
+    width: 100%;
+}
+
+#editBookingForm {
+    /* border: black solid 2px; */
+}
+
+.deleteBookingModalDiv {
+    width: 300px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
     border: solid black 2px;
+}
+
+.confirmDeleteBookingText {
+    font-size: 25px;
+}
+
+.yesButtonDeleteBookingDiv, .noButtonDeleteBookingDiv {
+    width: 90%;
+    height: 20%;
+}
+
+.yesButtonDeleteBooking {
+    background-color: white;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.noButtonDeleteBooking {
+    background-color: lightgray;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
 }

@@ -93,7 +93,7 @@ const BookingForm = ({ formType, spot, booking }) => {
     };
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form id='editBookingForm' onSubmit={handleSubmit}>
         <h2>{formType}</h2>
         {validationErrors.length ? <>These dates have already been booked! Please choose another date range.</> : null}
         <div>

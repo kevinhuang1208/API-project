@@ -24,14 +24,18 @@ const DeleteBooking = ({booking}) => {
     // }, [dispatch, spot])
 
     return (
-        <>
-          <h1>Confirm Delete</h1>
-          <div className="random-text">Are you sure you want to remove this booking?</div>
-          <div className="delete-review-two-buttons">
-          <button onClick={handleClick}>Yes (Delete Booking)</button>
-          <button onClick={closeModal}>No (Keep Booking)</button>
-          </div>
-        </>
+      <div className="deleteBookingModalDiv">
+      <div className="confirmDeleteBookingText">Confirm Delete</div>
+      <div className="random-text">Are you sure you want to remove this booking?</div>
+      <div className="yesButtonDeleteBookingDiv">
+        <button className="yesButtonDeleteBooking" onClick={handleClick}>Yes (Delete Booking)</button>
+
+      </div>
+      <div className="noButtonDeleteBookingDiv">
+        <button className="noButtonDeleteBooking" onClick={closeModal}>No (Keep Booking)</button>
+      </div>
+
+    </div>
       );
 }
 

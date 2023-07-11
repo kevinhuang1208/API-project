@@ -1,9 +1,9 @@
 #modal-content {
-    height: 450px;
+    /* height: 450px;
     width: 600px;
     border-radius: 50px;
-    padding: 20px;
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,215,223,1) 0%, rgba(255,221,233,1) 100%);
+    padding: 20px; */
+    /* background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,215,223,1) 0%, rgba(255,221,233,1) 100%); */
 }
 
 #modal-content > h1 {

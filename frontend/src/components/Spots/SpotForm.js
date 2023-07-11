@@ -89,7 +89,6 @@ const SpotForm = ({ formType }) => {
       }
 
       if (formType==="Edit Spot") {
-        // const theSpot = useSelector(state=>state.spots.allSpots[spotId])
 
         const alteredSpot = {
             country,

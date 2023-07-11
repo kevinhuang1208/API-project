@@ -20,10 +20,6 @@ const ManageSpot = () => {
 
     useEffect(() => {
         dispatch(getOwnerSpots()).then(() => setLoaded(true))
-        return () => {
-            dispatch({ type: 'RESET_STATE' });
-            // console.log("THIS IS INSIDE CLEANUP", spot)
-        }
     }, [dispatch])
 
     // useEffect(() => {
@@ -48,20 +44,20 @@ const ManageSpot = () => {
                 <img className='img-spot' src={spot.previewImage} alt='Home'/>
                 <div className='spot-description'>
                     <div className='left-side-description'>
-                        <div>{spot.city}, {spot.state}</div>
-                        <div>{spot.price} night</div>
+                        <div className="cityStateManage">{spot.city}, {spot.state}</div>
+                        <div className="priceManage">{spot.price} night</div>
                     </div>
-                    <div className='right-side-description'>⭐{spot.avgRating ? spot.avgRating.toFixed(1) : <>New</>}</div>
+                    <div className='starRatingManage'>⭐{spot.avgRating ? spot.avgRating.toFixed(1) : <>New</>}</div>
                 </div>
             </Link>
             <div className='buttons'>
                 <button><NavLink className='edit-spot' to={`/spots/${spot.id}/edit`}>Update</NavLink></button>
                 <button><OpenModalMenuItem
-                className='delete-button'
-              itemText="Delete"
-              modalComponent={<DeleteSpotModal
-                spot={spot}
-                key={spot.id}
+                    className='delete-button'
+                    itemText="Delete"
+                    modalComponent={<DeleteSpotModal
+                    spot={spot}
+                    key={spot.id}
                 />}
             /></button>
             </div>
