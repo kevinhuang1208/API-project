@@ -13,8 +13,8 @@ const SpotEach = ({spot}) => {
             <img className='img-spot' src={spot.previewImage} alt='Home'/>
             <div className='spot-description'>
                 <div className='left-side-description'>
-                    <div>{spot.city}, {spot.state}</div>
-                    <div>{spot.price} night</div>
+                    <div className='cityStateHome'>{spot.city}, {spot.state}</div>
+                    <div className='priceHome'>${spot.price} night</div>
                 </div>
                 <div className='right-side-description'>⭐{spot.avgRating ? spot.avgRating.toFixed(1) : <>New</>}</div>
             </div>

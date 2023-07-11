@@ -6,11 +6,6 @@
     border-radius: 50px;
 }
 
-.div-contents-flex {
-    width: 200px;
-    height: 250px;
-    margin: 25px 10px;
-}
 
 .buttons > button > li{
     list-style-type: none;

@@ -32,7 +32,7 @@ module.exports = {
      },
      {
       spotId: 1,
-      url: 'https://a0.muscache.com/im/pictures/c80929b6-6883-47a9-b8c8-26b19c77ae49.jpg',
+      url: 'https://a0.muscache.com/im/pictures/miso/Hosting-52254331/original/86ae1d34-832a-42f1-9fad-0e12915e7754.jpeg',
       preview: false
      },
      {
@@ -43,7 +43,7 @@ module.exports = {
      {
       spotId: 1,
       url: 'https://a0.muscache.com/im/pictures/miso/Hosting-52254331/original/c289a506-f74b-437f-807b-edad28f0be9b.jpeg',
-      preview: true
+      preview: false
      },
      {
       spotId: 2,
