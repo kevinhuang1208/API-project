@@ -8,12 +8,13 @@ import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteReviewModal from './DeleteReview';
 import './SpotById.css'
 import CreateBooking from '../Bookings/CreateBooking';
+import Load from "../../Load"
 
 const SpotById = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
     //test code
-
+    const [loaded, setLoaded] = useState(false)
 
     const sessionUser = useSelector(state => state.session.user);
 
@@ -36,7 +37,7 @@ const SpotById = () => {
     useEffect(() => {
         // dispatch(getAllSpots())
         if (spotId) {
-            dispatch(getSpot(spotId))
+            dispatch(getSpot(spotId)).then(() => setLoaded(true))
             dispatch(getReviews(spotId))
         }
 
@@ -78,7 +79,11 @@ const SpotById = () => {
         if(numString === "12") return "December"
     }
 
-    if(!spot.id) return <>Loading...</>;
+    if (!loaded) {
+        return (
+          <Load />
+        )
+      }
 
     // if(!spot) return null
     if(Object.values(spot).length === 0) {

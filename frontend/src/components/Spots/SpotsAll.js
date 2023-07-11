@@ -3,16 +3,21 @@ import { getAllSpots } from "../../store/spots"
 import { useEffect, useState } from "react"
 import SpotEach from "./SpotEach"
 import './SpotsAll.css'
+import Load from "../../Load"
 
 
 const SpotsAll = () => {
     const dispatch = useDispatch()
-    const [isLoading, setIsLoading] = useState(true)
+    const [loaded, setLoaded] = useState(false)
     const allSpots = useSelector(state=>state.spots.allSpots)
     const spots = Object.values(allSpots)
 
     useEffect(() => {
-        dispatch(getAllSpots())
+        dispatch(getAllSpots()).then(() => setLoaded(true))
+        return () => {
+            dispatch({ type: 'RESET_STATE' });
+
+        }
     }, [dispatch])
 
     // useEffect(() => {
@@ -22,9 +27,11 @@ const SpotsAll = () => {
     // }, [])
 
 
-    // if(isLoading) {
-    //     return <h1>Loading...</h1>
-    // }
+    if (!loaded) {
+        return (
+          <Load />
+        )
+      }
 
 
     return (

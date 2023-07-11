@@ -55,8 +55,8 @@ function ProfileButton({ user }) {
             {/* <li>{user.username}</li> */}
             <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
-            <li><Link className='manage-spots' to ={'/spots/current'}>Manage Spots</Link></li>
-            <li><Link className='manage-bookings' to={'/bookings/current'}>Manage Bookings</Link></li>
+            <li><Link className='manage-spots' to ={'/spots/current'} onClick={closeMenu}>Manage Spots</Link></li>
+            <li><Link className='manage-bookings' to={'/bookings/current'} onClick={closeMenu}>Manage Bookings</Link></li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

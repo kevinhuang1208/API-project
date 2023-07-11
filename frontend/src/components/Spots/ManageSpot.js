@@ -5,12 +5,13 @@ import { Link, NavLink } from "react-router-dom"
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from "./DeleteSpot";
 import './ManageSpot.css'
+import Load from "../../Load"
 
 const ManageSpot = () => {
 
     const dispatch = useDispatch()
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [loaded, setLoaded] = useState(false)
 
     const allSpots = useSelector(state=>state.spots.allSpots)
 
@@ -18,20 +19,25 @@ const ManageSpot = () => {
 
 
     useEffect(() => {
-        dispatch(getOwnerSpots())
+        dispatch(getOwnerSpots()).then(() => setLoaded(true))
+        return () => {
+            dispatch({ type: 'RESET_STATE' });
+            // console.log("THIS IS INSIDE CLEANUP", spot)
+        }
     }, [dispatch])
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 1000)
-    }, [])
+    // useEffect(() => {
+    //     setTimeout(() => {
+    //         setIsLoading(false)
+    //     }, 1000)
+    // }, [])
 
 
-    if(isLoading) {
-        return <h1>Loading...</h1>
-    }
-
+    if (!loaded) {
+        return (
+          <Load />
+        )
+      }
 
     return(
         <div className="big-div">

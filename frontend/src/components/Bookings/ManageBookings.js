@@ -2,7 +2,10 @@ import { useSelector, useDispatch } from "react-redux"
 import { getUserBookingsThunk } from "../../store/bookings"
 import { useEffect, useState } from "react"
 import { Link, NavLink } from "react-router-dom"
-// import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
+import EditBooking from "./EditBooking"
+import DeleteBooking from "./DeleteBooking";
+import Load from "../../Load";
 // import DeleteSpotModal from "./DeleteSpot";
 import './bookings.css'
 
@@ -10,7 +13,7 @@ const ManageBookings = () => {
 
     const dispatch = useDispatch()
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [loaded, setLoaded] = useState(false)
 
     const allUserBookings = useSelector(state=>state.bookings)
 
@@ -18,8 +21,8 @@ const ManageBookings = () => {
 
     console.log("THIS IS ALL USER BOOKINGS ON PAGE", bookings)
     useEffect(() => {
-        dispatch(getUserBookingsThunk())
-    }, [dispatch])
+        dispatch(getUserBookingsThunk()).then(() => setLoaded(true))
+    }, [])
 
     // useEffect(() => {
     //     setTimeout(() => {
@@ -28,9 +31,11 @@ const ManageBookings = () => {
     // }, [])
 
 
-    // if(isLoading) {
-    //     return <h1>Loading...</h1>
-    // }
+    if (!loaded) {
+        return (
+          <Load />
+        )
+      }
 
     return(
         <div className="manageBookingsContainer">
@@ -38,18 +43,30 @@ const ManageBookings = () => {
                 <div className="eachBookingContainer">
                     <div className="detailsBookingContainer">
                         <div className="descriptionEachBooking">
-                            <div className="nameSpotBooking">{booking.Spot.name}</div>
-                            <div className="locationSpotBooking">{booking.Spot.address}, {booking.Spot.city}, {booking.Spot.state}, {booking.Spot.country}</div>
-                            <div className="startDateSpotBooking">Start Date: {booking.startDate}</div>
-                            <div className="endDateSpotBooking">End Date: {booking.endDate}</div>
+                            <div className="nameSpotBooking">{booking.Spot ? booking.Spot.name : <>...</>}</div>
+                            <div className="locationSpotBooking">{booking.Spot ? booking.Spot.address : <>...</>}, {booking.Spot ? booking.Spot.city : <>...</>}, {booking.Spot ? booking.Spot.state : <>...</>}, {booking.Spot ? booking.Spot.country : <>...</>}</div>
+                            <div className="startDateSpotBooking">Start Date: {booking ? booking.startDate : <>...</>}</div>
+                            <div className="endDateSpotBooking">End Date: {booking ? booking.endDate : <>...</>}</div>
                         </div>
                         <div className="imgEachBooking">
-                            <img src={booking.Spot.previewImage} alt="Booking Photo"/>
+                            <img src={booking.Spot ? booking.Spot.previewImage : <>Loading image...</>}/>
                         </div>
                     </div>
                     <div className="editAndDeleteBookingContainer">
-                        <button>Edit</button>
-                        <button>Delete</button>
+                        <div className="editBookingButtonDiv">
+                            <OpenModalMenuItem
+                            className='editBookingActualButton'
+                            itemText="Edit Booking"
+                            modalComponent={<EditBooking booking={booking} key={booking.id}/>}
+                            />
+                        </div>
+                        <div className="deleteBookingButton">
+                            <OpenModalMenuItem
+                            className='deleteBookingActualButton'
+                            itemText="Delete Booking"
+                            modalComponent={<DeleteBooking booking={booking} key={booking.id}/>}
+                            />
+                        </div>
                     </div>
                 </div>
 

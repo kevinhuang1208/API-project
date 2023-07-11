@@ -1,9 +1,10 @@
 import { csrfFetch } from "./csrf";
 
 //Type Constraints
-export const GET_USER_BOOKINGS = 'reviews/GET_USER_BOOKINGS'
-// export const ADD_REVIEW = 'reviews/ADD_REVIEW'
-// export const DELETE_REVIEW = 'reviews/DELETE_REVIEW'
+export const GET_USER_BOOKINGS = 'bookings/GET_USER_BOOKINGS'
+export const ADD_BOOKING = 'bookings/ADD_BOOKING'
+export const EDIT_BOOKING = 'bookings/EDIT_BOOKING'
+export const DELETE_BOOKING = 'bookings/DELETE_BOOKING'
 
 // //Action Creators
 
@@ -18,15 +19,20 @@ export const getUserBookings = (bookings) => ({
     bookings
 });
 
-// export const addReview = (review) => ({
-//   type: ADD_REVIEW,
-//   review
-// })
+export const addBooking = (booking) => ({
+  type: ADD_BOOKING,
+  booking
+})
 
-// export const removeReview = (reviewId) => ({
-//   type: DELETE_REVIEW,
-//   reviewId,
-// })
+export const editBooking = (booking) => ({
+  type: EDIT_BOOKING,
+  booking
+})
+
+export const deleteBooking = (bookingId) => ({
+  type: DELETE_BOOKING,
+  bookingId,
+})
 
 // //Thunks
 // export const getReviews = (spotId) => async (dispatch) => {
@@ -42,27 +48,41 @@ export const getUserBookingsThunk = () => async (dispatch) => {
         return bookings
 }
 
-// export const createReview = (review, spotId) => async (dispatch) => {
-//   const req = await csrfFetch(`/api/spots/${spotId}/reviews`, {
-//     method: 'POST',
-//     headers: { 'Content-Type': 'application/json' },
-//     body: JSON.stringify(review)
-//   })
-//   const createdReview = await req.json()
-//   dispatch(addReview(createdReview))
-//   return createdReview
+export const createBookingThunk = (booking, spotId) => async (dispatch) => {
+  const req = await csrfFetch(`/api/spots/${spotId}/bookings`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(booking)
+  })
+  const createdBooking = await req.json()
+  await dispatch(addBooking(createdBooking))
+  return createdBooking
 
-// }
+}
 
-// export const deleteReview = (reviewId) => async (dispatch) => {
-//   const response = await csrfFetch(`/api/reviews/${reviewId}`, {
-//     method: 'DELETE'
-//   })
-//   if(response.ok) {
-//     dispatch(removeReview(reviewId))
-//     return
-//   }
-// }
+export const editBookingThunk = (booking, bookingId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/${bookingId}`, {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(booking)
+  })
+  if(response.ok) {
+      const edittedBooking = await response.json()
+      await dispatch(editBooking(edittedBooking))
+      await dispatch(getUserBookingsThunk())
+      return edittedBooking
+  }
+}
+
+export const deleteBookingThunk = (bookingId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/bookings/${bookingId}`, {
+    method: 'DELETE'
+  })
+  if(response.ok) {
+    await dispatch(deleteBooking(bookingId))
+    return
+  }
+}
 
 //state = {spot: {}, user: {}
 const initialState = {}
@@ -73,21 +93,25 @@ const bookingsReducer = (state = initialState, action) => {
         case GET_USER_BOOKINGS:
           newState = {...state}
           const someBookings = {}
-        //   console.log("THIS IS INSIDE REDUCER USER BOOKINGS", action)
           action.bookings.Bookings.map((booking) => {
             someBookings[booking.id] = booking
           })
           newState = someBookings
           return newState
-    //     case ADD_REVIEW:
-    //       const newReview = {...state, spot: {...state.spot}, user: {...state.user}}
-    //       newReview.spot[action.review.id] = action.review
-    //       newState = newReview
-    //       return newState
-    //     case DELETE_REVIEW:
-    //       newState = {...state, spot: {...state.spot}, user: {...state.user}}
-    //       delete newState.spot[action.reviewId]
-    //       return newState
+        case ADD_BOOKING:
+          const newBooking = {...state}
+          newBooking[action.booking.id] = action.booking
+          newState = newBooking
+          return newState
+        case EDIT_BOOKING:
+          const editBooking = {...state}
+          editBooking[action.booking.id] = action.booking
+          newState = editBooking
+          return newState
+        case DELETE_BOOKING:
+          newState = {...state}
+          delete newState[action.bookingId]
+          return newState
        default:
             return state
     }

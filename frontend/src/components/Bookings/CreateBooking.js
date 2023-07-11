@@ -1,10 +1,10 @@
 import BookingForm from "./BookingForm";
 
-const CreateBooking = () => {
+const CreateBooking = ({spot}) => {
 
     return(
         <BookingForm
-            formType="Create Booking"
+            formType="Create Booking" spot={spot}
         />
     )
 

@@ -1,10 +1,10 @@
 import BookingForm from "./BookingForm";
 
-const EditBooking = () => {
+const EditBooking = ({booking}) => {
 
     return(
         <BookingForm
-            formType="Edit Booking"
+            formType="Edit Booking" booking={booking}
         />
     )
 
