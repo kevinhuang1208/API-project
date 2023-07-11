@@ -1,21 +1,37 @@
-#modal-content {
-    /* height: 450px;
-    width: 600px;
-    border-radius: 50px;
-    padding: 20px; */
-    /* background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,215,223,1) 0%, rgba(255,221,233,1) 100%); */
+.signUpFormDiv {
+    height: 450px;
+    border: solid black 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
 
-#modal-content > h1 {
+.signUpText {
+    font-size: 20px;
     text-align: center;
+    padding: 15px;
 }
 
-#modal-content > form {
+#signUpForm {
     width: 550px;
-    height: 200px;
-    padding-left: 25px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
 }
 
 .confirm-pass-input {
     padding-bottom: 10px;
+}
+
+#signUpForm > button {
+    padding: 5px;
+}
+
+#signUpForm > button:enabled {
+    border: lightgray 1px solid;
+    cursor: pointer;
+    font-weight: bold;
 }

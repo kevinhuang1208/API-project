@@ -93,10 +93,11 @@ const BookingForm = ({ formType, spot, booking }) => {
     };
 
     return (
-      <form id='editBookingForm' onSubmit={handleSubmit}>
+      <form id='bookingForm' onSubmit={handleSubmit}>
+        <div className='titleAndDatePickerDiv'>
         <h2>{formType}</h2>
-        {validationErrors.length ? <>These dates have already been booked! Please choose another date range.</> : null}
-        <div>
+        {validationErrors.length ? <div className='validationsBookingForm'>These dates have already been booked! Please choose another date range.</div> : null}
+        <div className='datePickerDiv'>
         <DatePicker
             selectsRange={true}
             startDate={startDate}
@@ -108,7 +109,7 @@ const BookingForm = ({ formType, spot, booking }) => {
             placeholderText='Please select a date range'
         />
         </div>
-
+        </div>
         <div className='submit-form'>
         <button type="submit">{formType}</button>
         </div>

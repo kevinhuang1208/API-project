@@ -117,7 +117,7 @@ const SpotForm = ({ formType }) => {
 
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form id='spotForm' onSubmit={handleSubmit}>
         <h2>{formType}</h2>
         <h3>Where's your place located?</h3>
         <p>Guests will only get your exact address once they booked a reservation.</p>
