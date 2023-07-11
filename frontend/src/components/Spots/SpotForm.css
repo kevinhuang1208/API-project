@@ -36,10 +36,11 @@ textarea {
 }
 
 .submit-form > button {
-    /* background-color: lightgray; */
+    background-color: #FF385C;
     padding: 10px;
     border-radius: 10px;
-    border: solid black 1px;
+    color: white;
+    border: none;
     cursor: pointer;
 }
 

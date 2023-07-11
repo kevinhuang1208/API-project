@@ -36,9 +36,9 @@ function PostReviewModal({spot}) {
     }
 
     return (
-      <>
-        <h1>How was your stay?</h1>
-        <form onSubmit={handleSubmit}>
+      <div className="reviewFormDiv">
+        <div className="reviewFormText">How was your stay?</div>
+        <form id="reviewForm" onSubmit={handleSubmit}>
             <textarea
               value={review}
               onChange={(e) => setReview(e.target.value)}
@@ -93,7 +93,7 @@ function PostReviewModal({spot}) {
           <button type="submit" disabled={!rating || review.length < 10 ? true : false}>Submit Your Review</button>
           </div>
         </form>
-      </>
+      </div>
     );
   }
 

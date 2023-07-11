@@ -24,14 +24,18 @@ const DeleteReviewModal = ({review}) => {
     // }, [dispatch, spot])
 
     return (
-        <>
-          <h1>Confirm Delete</h1>
-          <div className="random-text">Are you sure you want to remove this spot from the listings?</div>
-          <div className="delete-review-two-buttons">
-          <button onClick={handleClick}>Yes (Delete Review)</button>
-          <button onClick={closeModal}>No (Keep Review)</button>
-          </div>
-        </>
+      <div className="deleteReviewModalDiv">
+      <div className="confirmReviewDeleteText">Confirm Delete</div>
+      <div className="random-text">Are you sure you want to remove this review?</div>
+      <div className="yesButtonDeleteReviewDiv">
+        <button className="yesButtonDeleteReview" onClick={handleClick}>Yes (Delete Review)</button>
+
+      </div>
+      <div className="noButtonDeleteReviewDiv">
+        <button className="noButtonDeleteReview" onClick={closeModal}>No (Keep Review)</button>
+      </div>
+
+    </div>
       );
 }
 
