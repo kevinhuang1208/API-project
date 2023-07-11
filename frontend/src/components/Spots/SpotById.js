@@ -105,10 +105,10 @@ const SpotById = () => {
             <h4>{spot.city}, {spot.state}, {spot.country}</h4>
             <div className='grid'>
             <img className='main' src={spot.SpotImages ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
-            <img className='photoone' src={spot.SpotImages.url ? spot.SpotImages[1].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
-            <img className='phototwo' src={spot.SpotImages.url ? spot.SpotImages[2].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
-            <img className='photothree' src={spot.SpotImages.url ? spot.SpotImages[3].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
-            <img className='photofour' src={spot.SpotImages.url ? spot.SpotImages[4].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
+            <img className='photoone' src={spot.SpotImages.length > 1 ? spot.SpotImages[1].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
+            <img className='phototwo' src={spot.SpotImages.length > 1 ? spot.SpotImages[2].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
+            <img className='photothree' src={spot.SpotImages.length > 1 ? spot.SpotImages[3].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
+            <img className='photofour' src={spot.SpotImages.length > 1 ? spot.SpotImages[4].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
             </div>
             <div className='middle-section-spot-id'>
                 <div className='left-side-spot-id'>
