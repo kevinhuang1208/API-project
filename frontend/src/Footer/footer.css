@@ -1,0 +1,39 @@
+.linkedinLogo,
+.githubLogo {
+    width: 15px;
+    height: 15px;
+    margin: 5px;
+    padding-top:3px;
+}
+
+.tech-icons-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.tech-icons {
+    width: 30px;
+    height: 30px;
+  }
+
+.footer-contributors {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+}
+
+.footer-container {
+    text-align: center;
+    height: 82px;
+    width: 95%;
+    bottom: 0;
+}
+
+.footerNameBlock {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

@@ -11,6 +11,7 @@ import ManageSpot from "./components/Spots/ManageSpot";
 import EditSpot from "./components/Spots/EditSpot";
 import ManageBookings from "./components/Bookings/ManageBookings";
 import CreateBooking from "./components/Bookings/CreateBooking";
+import Footer from "./Footer";
 
 function App() {
   const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function App() {
 
   return (
     <>
+      <div id='wholeApp'>
       <Navigation isLoaded={isLoaded} />
       {isLoaded &&
         <Switch>
@@ -43,6 +45,8 @@ function App() {
 
           </Route>
         </Switch>}
+        </div>
+        <Footer/>
     </>
   );
 }
