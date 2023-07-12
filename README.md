@@ -1,12 +1,12 @@
 # CareBnB
 
-This is a full-stack project reflecting what we have learned over the past two months. CareBnB, a solo project, is a project that took in what we learn on the backend (databases, servers, routes) as well as the frontend (user/client side). It was a difficult, but very rewarding project that I am proud to render on a live server.
+CareBnB is a full-stack project reflecting the skills I have learned over the course of my Web Development journey. Being a solo project, CareBnB took in what I learned on the backend (databases, servers, routes) as well as the frontend (user/client side). Inspired by AirBnB, I was able to implement features such as Spots, Reviews, and Bookings. Provided below is a walkthrough of the site. Enjoy!
 
 ## Technologies
 
 Technologies used were SQL, Sequelize, React and Redux all on VSCode.
 
-![readme-example-1](https://i.ibb.co/Kwcj0xR/Care-Bn-B-Snip.png)
+![readme-example-1](https://cdn.discordapp.com/attachments/1117948168353628201/1128486179222847558/CareBnB_walkthrough.gif)
 
 ## Launching the App Locally
 
