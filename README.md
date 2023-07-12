@@ -6,7 +6,17 @@ CareBnB (https://carebnb.onrender.com/) is a full-stack project reflecting the s
 
 <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" /><img src="https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" /><img src="https://img.shields.io/badge/Express.js-000000?style=for-the-badge&logo=express&logoColor=white" /><img src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" /><img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" /><img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" /><img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" /><img src="https://img.shields.io/badge/Redux-593D88?style=for-the-badge&logo=redux&logoColor=white" />
 
-![readme-example-1](https://cdn.discordapp.com/attachments/1117948168353628201/1128486179222847558/CareBnB_walkthrough.gif)
+## Viewing Spots and Creating a Spot Form
+![Viewing Spots and CreateForm](https://github.com/kevinhuang1208/API-project/assets/112971018/5c7c7c44-1017-40fd-92de-43daacff924e)
+## Viewing Each Spot and Booking a Spot
+![Viewing Each Spot and CreateBooking](https://github.com/kevinhuang1208/API-project/assets/112971018/2c71bb04-88b7-4f77-ae40-c56d2530816e)
+## Posting a Review
+![Posting Review](https://github.com/kevinhuang1208/API-project/assets/112971018/ef856c79-cfa9-47c8-a4e4-18df0d4cd0f6)
+## Managing your Spots
+![Managing Spots](https://github.com/kevinhuang1208/API-project/assets/112971018/3c58a2ad-f8aa-43fc-a6ee-d40830db5ae8)
+## Managing your Bookings
+![Managing Bookings](https://github.com/kevinhuang1208/API-project/assets/112971018/77b26373-5164-4ca9-bcdd-24e9f3ac2f01)
+
 
 ## Launching the App Locally
 
