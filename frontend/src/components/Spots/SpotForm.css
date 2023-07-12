@@ -1,6 +1,5 @@
-form {
+#spotForm {
     text-align: center;
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,215,223,1) 0%, rgba(255,221,233,1) 100%);
     border-radius: 50px;
     padding: 50px 0px;
 }
@@ -19,10 +18,6 @@ textarea {
     height: 150px;
 }
 
-/* .street-address {
-    border: black solid 1px;
-
-} */
 .img1 > input,
 .img2 > input,
 .img3 > input,
@@ -37,9 +32,12 @@ textarea {
 }
 
 .submit-form > button {
-    background-color: lightgray;
+    background-color: #FF385C;
     padding: 10px;
-    border-radius: 25px;
+    border-radius: 10px;
+    color: white;
+    border: none;
+    cursor: pointer;
 }
 
 .errors {

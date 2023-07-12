@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
-import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
-import { deleteReview, getOwnerSpots } from "../../store/reviews";
+import { deleteReview } from "../../store/reviews";
 import './DeleteReview.css'
 
 
@@ -19,19 +17,19 @@ const DeleteReviewModal = ({review}) => {
           .then(closeModal)
     };
 
-    //   useEffect(() => {
-    //     dispatch(getOwnerSpots())
-    // }, [dispatch, spot])
-
     return (
-        <>
-          <h1>Confirm Delete</h1>
-          <div className="random-text">Are you sure you want to remove this spot from the listings?</div>
-          <div className="delete-review-two-buttons">
-          <button onClick={handleClick}>Yes (Delete Review)</button>
-          <button onClick={closeModal}>No (Keep Review)</button>
-          </div>
-        </>
+      <div className="deleteReviewModalDiv">
+      <div className="confirmReviewDeleteText">Confirm Delete</div>
+      <div className="random-text">Are you sure you want to remove this review?</div>
+      <div className="yesButtonDeleteReviewDiv">
+        <button className="yesButtonDeleteReview" onClick={handleClick}>Yes (Delete Review)</button>
+
+      </div>
+      <div className="noButtonDeleteReviewDiv">
+        <button className="noButtonDeleteReview" onClick={closeModal}>No (Keep Review)</button>
+      </div>
+
+    </div>
       );
 }
 

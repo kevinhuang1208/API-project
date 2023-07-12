@@ -1,27 +1,37 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getSpot } from '../../store/spots';
-import { deleteReview, getReviews } from '../../store/reviews';
+import { getReviews } from '../../store/reviews';
 import PostReviewModal from '../PostReviewModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteReviewModal from './DeleteReview';
 import './SpotById.css'
+import CreateBooking from '../Bookings/CreateBooking';
+import Load from "../../Load"
 
 const SpotById = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
-    //test code
-    const [isLoading, setIsLoading] = useState(true)
-
+    const [loaded, setLoaded] = useState(false)
     const sessionUser = useSelector(state => state.session.user);
 
-    const spot = useSelector(state => state.spots.singleSpot)
+    let spot = useSelector(state => state.spots.singleSpot)
 
     const theReviews = useSelector(state => state.reviews.spot)
 
     const reviewsReversed = Object.values(theReviews).reverse()
 
+    useEffect(() => {
+        if (spotId) {
+            dispatch(getSpot(spotId)).then(() => setLoaded(true))
+            dispatch(getReviews(spotId))
+        }
+
+        return () => {
+            dispatch({ type: 'RESET_STATE' });
+        }
+    },[dispatch])
 
     //if user did NOT post a review yet
     const didNotPostYet = () => {
@@ -31,13 +41,6 @@ const SpotById = () => {
         })
         return didNotPost
     }
-
-    const handleClick = (e) => {
-        e.preventDefault();
-
-
-        return alert("Feature coming soon")
-    };
 
     const convertToMonth = (numString) => {
         if(numString === "01") return "January"
@@ -54,43 +57,31 @@ const SpotById = () => {
         if(numString === "12") return "December"
     }
 
-    useEffect(() => {
-        dispatch(getSpot(spotId))
-        dispatch(getReviews(spotId))
-    }, [dispatch, spotId])
-
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 5000)
-    }, [])
-
-    if(isLoading) {
-        return <h1>Loading (the photos)...</h1>
-    }
+    if (!loaded) {
+        return (
+          <Load />
+        )
+      }
 
     // if(!spot) return null
     if(Object.values(spot).length === 0) {
         return null;
       }
 
-
     if(!Object.values(theReviews)) return null
-    // if(Object.values(reviews).length === 0) {
-    //       return null;
-    //     }
-
 
     return (
+
         <>
+
             <h2>{spot.name}</h2>
             <h4>{spot.city}, {spot.state}, {spot.country}</h4>
             <div className='grid'>
-            <img className='main' src={spot.SpotImages[0] ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Home Image'/>
-            <img className='photoone' src={spot.SpotImages[1] ? spot.SpotImages[1].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
-            <img className='phototwo' src={spot.SpotImages[2] ? spot.SpotImages[2].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
-            <img className='photothree' src={spot.SpotImages[3] ? spot.SpotImages[3].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
-            <img className='photofour' src={spot.SpotImages[4] ? spot.SpotImages[4].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'} alt='Photo'/>
+            <img className='main' src={spot.SpotImages ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
+            <img className='photoone' src={spot.SpotImages.length > 1 ? spot.SpotImages[1].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
+            <img className='phototwo' src={spot.SpotImages.length > 1 ? spot.SpotImages[2].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
+            <img className='photothree' src={spot.SpotImages.length > 1 ? spot.SpotImages[3].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
+            <img className='photofour' src={spot.SpotImages.length > 1 ? spot.SpotImages[4].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
             </div>
             <div className='middle-section-spot-id'>
                 <div className='left-side-spot-id'>
@@ -103,7 +94,11 @@ const SpotById = () => {
                         <div>⭐{Object.values(theReviews).length > 0 ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}</div>
                     </div>
                     <div className='reserve-button'>
-                    <button onClick={handleClick}>Reserve</button>
+                    <OpenModalMenuItem
+                        className='make-reserve-button'
+                        itemText="Reserve"
+                        modalComponent={<CreateBooking spot={spot} key={spot.id}/>}
+                    />
                     </div>
                 </div>
             </div>
@@ -111,7 +106,6 @@ const SpotById = () => {
                 ⭐{Object.values(theReviews).length > 0 ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}
             </div>
 
-            {/*below is logic for Post Your Review*/}
             <div className='make-review'>
             {sessionUser && Object.values(theReviews).length > 0 && (sessionUser.id !== spot.ownerId) && didNotPostYet(Object.values(theReviews)) ? <OpenModalMenuItem
               className='make-review-button'
@@ -145,6 +139,7 @@ const SpotById = () => {
                 })}
 
             </div>
+
         </>
     )
 }

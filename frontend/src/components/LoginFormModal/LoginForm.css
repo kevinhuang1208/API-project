@@ -1,18 +1,46 @@
-.username-email {
-    padding-bottom: 10px;
+.logInFormDiv {
+    height: 250px;
+    border: solid black 2px;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
 
-#modal-content > .demo-button {
-    text-align: center;
-}
-
-#modal-content > .demo-button > button {
-    background-color: lightgray;
-    padding: 30px 40px;
-    border-radius: 50px;
+.logInText {
     font-size: 20px;
+    text-align: center;
+    padding: 15px;
 }
 
-form > .log-in-button {
-    padding-top: 10px;
+#logInForm {
+    width: 400px;
+    height: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+
+#logInForm > button:enabled {
+    border: lightgray 1px solid;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.demo-button {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.demoButton {
+    border: lightgray 1px solid;
+    cursor: pointer;
+    font-weight: bold;
+    padding: 5px;
+}
+
+.logInErrors {
+    color: red;
 }

@@ -5,12 +5,13 @@ import { Link, NavLink } from "react-router-dom"
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteSpotModal from "./DeleteSpot";
 import './ManageSpot.css'
+import Load from "../../Load"
 
 const ManageSpot = () => {
 
     const dispatch = useDispatch()
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [loaded, setLoaded] = useState(false)
 
     const allSpots = useSelector(state=>state.spots.allSpots)
 
@@ -18,20 +19,15 @@ const ManageSpot = () => {
 
 
     useEffect(() => {
-        dispatch(getOwnerSpots())
+        dispatch(getOwnerSpots()).then(() => setLoaded(true))
     }, [dispatch])
 
-    useEffect(() => {
-        setTimeout(() => {
-            setIsLoading(false)
-        }, 1000)
-    }, [])
 
-
-    if(isLoading) {
-        return <h1>Loading...</h1>
-    }
-
+    if (!loaded) {
+        return (
+          <Load />
+        )
+      }
 
     return(
         <div className="big-div">
@@ -42,20 +38,20 @@ const ManageSpot = () => {
                 <img className='img-spot' src={spot.previewImage} alt='Home'/>
                 <div className='spot-description'>
                     <div className='left-side-description'>
-                        <div>{spot.city}, {spot.state}</div>
-                        <div>{spot.price} night</div>
+                        <div className="cityStateManage">{spot.city}, {spot.state}</div>
+                        <div className="priceManage">{spot.price} night</div>
                     </div>
-                    <div className='right-side-description'>⭐{spot.avgRating ? spot.avgRating.toFixed(1) : <>New</>}</div>
+                    <div className='starRatingManage'>⭐{spot.avgRating ? spot.avgRating.toFixed(1) : <>New</>}</div>
                 </div>
             </Link>
             <div className='buttons'>
                 <button><NavLink className='edit-spot' to={`/spots/${spot.id}/edit`}>Update</NavLink></button>
                 <button><OpenModalMenuItem
-                className='delete-button'
-              itemText="Delete"
-              modalComponent={<DeleteSpotModal
-                spot={spot}
-                key={spot.id}
+                    className='delete-button'
+                    itemText="Delete"
+                    modalComponent={<DeleteSpotModal
+                    spot={spot}
+                    key={spot.id}
                 />}
             /></button>
             </div>

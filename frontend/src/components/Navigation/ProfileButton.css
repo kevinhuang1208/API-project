@@ -1,7 +1,10 @@
 .profile-dropdown {
     display: flex;
     flex-direction: column;
+    position: absolute;
     justify-content: center;
+    z-index: 1;
+    right: 0px;
     border: 1px solid black;
     border-radius: 20px;
     padding-top: 10px;
@@ -11,12 +14,29 @@
 }
 
 ul > li > button {
-    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,215,223,1) 0%, rgba(255,221,233,1) 100%);
+    cursor: pointer;
     border-radius: 25px;
-    border: 1px solid black;
+    border: none;
 }
 
-ul > li > .manage-spots {
+ul > li > .manage-spots, ul > li > .manage-bookings {
     color: black;
     text-decoration: none;
+}
+
+.button-with-arrow {
+    height: 40px;
+    width: 70px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: lightgray solid 1px;
+    border-radius: 25px;
+    cursor: pointer;
+}
+
+.profile-div > img{
+  height: 30px;
+  width: 30px;
+  border-radius: 25px;
 }

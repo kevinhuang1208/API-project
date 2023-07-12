@@ -70,8 +70,6 @@ const SpotForm = ({ formType }) => {
             SpotImages: urls
         }
 
-        // if(url) await dispatch(addImage(url))
-
         const spot = await dispatch(createSpot(newSpot, urls))
         if(spot.id) {
             setCountry("")
@@ -89,7 +87,6 @@ const SpotForm = ({ formType }) => {
       }
 
       if (formType==="Edit Spot") {
-        // const theSpot = useSelector(state=>state.spots.allSpots[spotId])
 
         const alteredSpot = {
             country,
@@ -118,7 +115,7 @@ const SpotForm = ({ formType }) => {
 
 
     return (
-      <form onSubmit={handleSubmit}>
+      <form id='spotForm' onSubmit={handleSubmit}>
         <h2>{formType}</h2>
         <h3>Where's your place located?</h3>
         <p>Guests will only get your exact address once they booked a reservation.</p>
@@ -271,7 +268,6 @@ const SpotForm = ({ formType }) => {
         </div>
         </>
 
-                    {/* } */}
         {formType==="Create Spot" ?
         <div className='img1'>
         <h3>Liven up your spot with photos</h3>

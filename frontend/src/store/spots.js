@@ -1,7 +1,7 @@
 import { csrfFetch } from "./csrf";
 //Type Constraints
 export const LOAD_SPOTS = 'spots/LOAD_SPOTS';
-export const RECEIVE_SPOT = 'spots/RECEIVE_SPOTS'
+export const RECEIVE_SPOT = 'spots/RECEIVE_SPOT'
 export const ADD_SPOT = 'spots/ADD_SPOT'
 export const ADD_IMAGE = 'spots/ADD_IMAGE'
 export const EDIT_SPOT = 'spots/EDIT_SPOT'
@@ -45,19 +45,30 @@ export const addImage = (url) => ({
   export const getSpot = (spotId) => async (dispatch) => {
       const response = await fetch(`/api/spots/${spotId}`);
       const eachSpot = await response.json();
-      dispatch(receiveSpot(eachSpot));
+
+      if(response.ok) {
+        await dispatch(receiveSpot(eachSpot));
+        return eachSpot
+
+      }
     };
 
     export const getAllSpots = () => async (dispatch) => {
         const response = await fetch('/api/spots');
         const spots = await response.json();
-        dispatch(loadSpots(spots));
+
+        if(response.ok) {
+            await dispatch(loadSpots(spots));
+            return spots
+
+        }
     }
 
     export const getOwnerSpots = () => async (dispatch) => {
         const response = await fetch('/api/spots/current')
         const spots = await response.json()
-        dispatch(loadSpots(spots))
+        await dispatch(loadSpots(spots))
+        return spots
     }
 
     export const createSpot = (spot) => async (dispatch) => {
@@ -67,7 +78,6 @@ export const addImage = (url) => ({
             body: JSON.stringify(spot)
         })
         const aSpot = await response.json()
-        //response.ok condition
         let array = []
         if(spot.SpotImages) {
             spot.SpotImages.forEach(async (eachImage) => {
@@ -123,7 +133,8 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
             newState.allSpots = spotsState
             return newState
         case RECEIVE_SPOT:
-            return {...state, singleSpot: action.spot}
+            newState = {...state, singleSpot: action.spot}
+            return newState
         case ADD_SPOT:
             const newSpot = {...state, singleSpot: {...state.singleSpot}, allSpots: {...state.allSpots}}
             newSpot.singleSpot[action.spot.id] = action.spot
@@ -140,6 +151,8 @@ const spotsReducer = (state = {singleSpot: {}, allSpots: {}}, action) => {
             newState = {...state, singleSpot: {...state.singleSpot}, allSpots: {...state.allSpots}}
             delete newState.allSpots[action.spotId]
             return newState
+        case 'RESET_STATE':
+            return {singleSpot: {}, allSpots: {}};
         default:
             return state
     }

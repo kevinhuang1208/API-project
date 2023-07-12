@@ -19,6 +19,7 @@
   }
 
   #modal-content {
+    height: fit-content;
     position: absolute;
     background-color: white;
   }

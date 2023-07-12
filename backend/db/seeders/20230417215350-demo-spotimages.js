@@ -32,18 +32,18 @@ module.exports = {
      },
      {
       spotId: 1,
-      url: 'https://a0.muscache.com/im/pictures/c80929b6-6883-47a9-b8c8-26b19c77ae49.jpg',
+      url: 'https://a0.muscache.com/im/pictures/miso/Hosting-52254331/original/86ae1d34-832a-42f1-9fad-0e12915e7754.jpeg',
       preview: false
      },
      {
       spotId: 1,
-      url: 'https://a0.muscache.com/im/pictures/miso/Hosting-18225219/original/5d6f7f7e-1185-493e-bf51-195a27c7bbe5.jpeg',
+      url: 'https://a0.muscache.com/im/pictures/miso/Hosting-52254331/original/86ae1d34-832a-42f1-9fad-0e12915e7754.jpeg',
       preview: false
      },
      {
       spotId: 1,
-      url: 'https://a0.muscache.com/im/pictures/b37cba4f-171b-4eca-82e7-3f3b249d75a8.jpg',
-      preview: true
+      url: 'https://a0.muscache.com/im/pictures/miso/Hosting-52254331/original/c289a506-f74b-437f-807b-edad28f0be9b.jpeg',
+      preview: false
      },
      {
       spotId: 2,

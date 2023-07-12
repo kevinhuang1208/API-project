@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
-import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteSpot, getOwnerSpots } from "../../store/spots";
@@ -24,14 +22,18 @@ const DeleteSpotModal = ({spot}) => {
     }, [dispatch, spot])
 
     return (
-        <>
-          <h1>Confirm Delete</h1>
+        <div className="deleteModalDiv">
+          <div className="confirmDeleteText">Confirm Delete</div>
           <div className="random-text">Are you sure you want to remove this spot from the listings?</div>
-          <div className="delete-two-buttons">
-            <button onClick={handleClick}>Yes (Delete Spot)</button>
-            <button onClick={closeModal}>No (Keep Spot)</button>
+          <div className="yesButtonDeleteSpotDiv">
+            <button className="yesButtonDeleteSpot" onClick={handleClick}>Yes (Delete Spot)</button>
+
           </div>
-        </>
+          <div className="noButtonDeleteSpotDiv">
+            <button className="noButtonDeleteSpot" onClick={closeModal}>No (Keep Spot)</button>
+          </div>
+
+        </div>
       );
 }
 

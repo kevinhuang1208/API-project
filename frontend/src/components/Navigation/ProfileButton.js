@@ -46,16 +46,19 @@ function ProfileButton({ user }) {
 
   return (
     <div className="profile-button">
-      <button onClick={openMenu}>
-        <i className="fas fa-user-circle" />
-      </button>
+      <div className={`button-with-arrow ${showMenu? 'menu-opened':'menu-closed'}`} onClick={openMenu}>
+      ≡
+      <div className="profile-div">
+        <img src="https://cdn.discordapp.com/attachments/1117948168353628201/1128364988722061413/user.png"/>
+      </div>
+      </div>
       <ul className={ulClassName} ref={ulRef}>
         {user ? (
           <>
-            {/* <li>{user.username}</li> */}
             <li>Hello, {user.firstName}</li>
             <li>{user.email}</li>
-            <li><Link className='manage-spots' to ={'/spots/current'}>Manage Spots</Link></li>
+            <li><Link className='manage-spots' to ={'/spots/current'} onClick={closeMenu}>Manage Spots</Link></li>
+            <li><Link className='manage-bookings' to={'/bookings/current'} onClick={closeMenu}>Manage Bookings</Link></li>
             <li>
               <button onClick={logout}>Log Out</button>
             </li>

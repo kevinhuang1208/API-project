@@ -2,9 +2,9 @@
 * {
 font-family: 'Comfortaa', sans-serif;
 font-size: 15px;
-/* background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,215,223,1) 0%, rgba(255,221,233,1) 100%); */
 }
 
-html {
-    background-color: lightgray;
+#wholeApp {
+    position: relative;
+    min-height: 85vh;
 }
