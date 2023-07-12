@@ -78,7 +78,6 @@ export const addImage = (url) => ({
             body: JSON.stringify(spot)
         })
         const aSpot = await response.json()
-        //response.ok condition
         let array = []
         if(spot.SpotImages) {
             spot.SpotImages.forEach(async (eachImage) => {

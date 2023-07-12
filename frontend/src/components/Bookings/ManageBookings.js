@@ -6,7 +6,6 @@ import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import EditBooking from "./EditBooking"
 import DeleteBooking from "./DeleteBooking";
 import Load from "../../Load";
-// import DeleteSpotModal from "./DeleteSpot";
 import './bookings.css'
 
 const ManageBookings = () => {
@@ -23,13 +22,6 @@ const ManageBookings = () => {
     useEffect(() => {
         dispatch(getUserBookingsThunk()).then(() => setLoaded(true))
     }, [])
-
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setIsLoading(false)
-    //     }, 1000)
-    // }, [])
-
 
     if (!loaded) {
         return (

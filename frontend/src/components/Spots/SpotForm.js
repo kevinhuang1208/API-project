@@ -70,8 +70,6 @@ const SpotForm = ({ formType }) => {
             SpotImages: urls
         }
 
-        // if(url) await dispatch(addImage(url))
-
         const spot = await dispatch(createSpot(newSpot, urls))
         if(spot.id) {
             setCountry("")
@@ -270,7 +268,6 @@ const SpotForm = ({ formType }) => {
         </div>
         </>
 
-                    {/* } */}
         {formType==="Create Spot" ?
         <div className='img1'>
         <h3>Liven up your spot with photos</h3>

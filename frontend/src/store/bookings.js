@@ -9,11 +9,6 @@ export const DELETE_BOOKING = 'bookings/DELETE_BOOKING'
 // //Action Creators
 
 
-// export const getReviewsBySpot = (reviews) => ({
-//     type: GET_REVIEWS,
-//     reviews,
-//   });
-
 export const getUserBookings = (bookings) => ({
     type: GET_USER_BOOKINGS,
     bookings
@@ -35,11 +30,6 @@ export const deleteBooking = (bookingId) => ({
 })
 
 // //Thunks
-// export const getReviews = (spotId) => async (dispatch) => {
-//     const response = await fetch(`/api/spots/${spotId}/reviews`);
-//     const reviews = await response.json();
-//     dispatch(getReviewsBySpot(reviews));
-//   };
 
 export const getUserBookingsThunk = () => async (dispatch) => {
     const response = await fetch('/api/bookings/current')

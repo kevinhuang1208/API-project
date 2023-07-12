@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"
-import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import { useModal } from "../../context/Modal";
 import { deleteBookingThunk } from "../../store/bookings";
@@ -18,10 +16,6 @@ const DeleteBooking = ({booking}) => {
         return dispatch(deleteBookingThunk(booking.id))
           .then(closeModal)
     };
-
-    //   useEffect(() => {
-    //     dispatch(getOwnerSpots())
-    // }, [dispatch, spot])
 
     return (
       <div className="deleteBookingModalDiv">

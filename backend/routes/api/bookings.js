@@ -142,11 +142,6 @@ router.delete('/:id', requireAuth, async (req, res) => {
 
     const spot = await Spot.findByPk(booking.spotId)
 
-
-    // console.log(booking.dataValues.userId)
-    // console.log(req.user.dataValues.id)
-    // console.log(spot.ownerId)
-
     if((booking.dataValues.userId === req.user.dataValues.id) || (spot.ownerId === req.user.dataValues.id)) {
 
         const currentDate = new Date()
@@ -154,9 +149,7 @@ router.delete('/:id', requireAuth, async (req, res) => {
         let bookingsStartDate = booking.startDate
         let bookingsStartDateString = new Date(bookingsStartDate)
         let bookingsStartTime = bookingsStartDateString.getTime()
-        // let bookingsEndDate = booking.endDate
-        // let bookingsEndDateString = new Date    (bookingsEndDate)
-        // let bookingsEndTime = bookingsEndDateString.getTime()
+      
 
         if((currentTime > bookingsStartTime)) {
             res.status(403)

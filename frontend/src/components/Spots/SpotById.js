@@ -1,8 +1,8 @@
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getSpot, getAllSpots } from '../../store/spots';
-import { deleteReview, getReviews } from '../../store/reviews';
+import { getSpot } from '../../store/spots';
+import { getReviews } from '../../store/reviews';
 import PostReviewModal from '../PostReviewModal';
 import OpenModalMenuItem from '../Navigation/OpenModalMenuItem';
 import DeleteReviewModal from './DeleteReview';
@@ -13,17 +13,8 @@ import Load from "../../Load"
 const SpotById = () => {
     const { spotId } = useParams();
     const dispatch = useDispatch();
-    //test code
     const [loaded, setLoaded] = useState(false)
-
     const sessionUser = useSelector(state => state.session.user);
-
-    // const allTheSpots = useSelector(state => state.spots.allSpots)
-
-
-    // const allSpotsArr = Object.values(allTheSpots)
-
-    // console.log("THIS IS ALL THE SPOTS", allSpotsArr)
 
     let spot = useSelector(state => state.spots.singleSpot)
 
@@ -31,11 +22,7 @@ const SpotById = () => {
 
     const reviewsReversed = Object.values(theReviews).reverse()
 
-    console.log("THIS IS SPOT USESELECTOR", spot)
-
-
     useEffect(() => {
-        // dispatch(getAllSpots())
         if (spotId) {
             dispatch(getSpot(spotId)).then(() => setLoaded(true))
             dispatch(getReviews(spotId))
@@ -43,10 +30,8 @@ const SpotById = () => {
 
         return () => {
             dispatch({ type: 'RESET_STATE' });
-            // console.log("THIS IS INSIDE CLEANUP", spot)
         }
     },[dispatch])
-
 
     //if user did NOT post a review yet
     const didNotPostYet = () => {
@@ -56,13 +41,6 @@ const SpotById = () => {
         })
         return didNotPost
     }
-
-    // const handleClick = (e) => {
-    //     e.preventDefault();
-
-
-    //     return alert("Feature coming soon")
-    // };
 
     const convertToMonth = (numString) => {
         if(numString === "01") return "January"
@@ -90,12 +68,7 @@ const SpotById = () => {
         return null;
       }
 
-
     if(!Object.values(theReviews)) return null
-    // if(Object.values(reviews).length === 0) {
-    //       return null;
-    //     }
-
 
     return (
 
@@ -133,7 +106,6 @@ const SpotById = () => {
                 ⭐{Object.values(theReviews).length > 0 ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}
             </div>
 
-            {/*below is logic for Post Your Review*/}
             <div className='make-review'>
             {sessionUser && Object.values(theReviews).length > 0 && (sessionUser.id !== spot.ownerId) && didNotPostYet(Object.values(theReviews)) ? <OpenModalMenuItem
               className='make-review-button'

@@ -22,12 +22,6 @@ const ManageSpot = () => {
         dispatch(getOwnerSpots()).then(() => setLoaded(true))
     }, [dispatch])
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setIsLoading(false)
-    //     }, 1000)
-    // }, [])
-
 
     if (!loaded) {
         return (
