@@ -352,7 +352,7 @@ const SpotForm = ({ formType }) => {
         </div>
         : <></> }
         <div className='submit-form'>
-        <button type="submit">{formType}</button>
+        <button type="submit" disabled={!country || !address || !city || !state || !description || !name || !price || price < 0 || isNaN(price)}>{formType}</button>
         </div>
 
       </form>
