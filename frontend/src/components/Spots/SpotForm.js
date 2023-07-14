@@ -28,7 +28,6 @@ const SpotForm = ({ formType }) => {
 
     const urls = [url, url2, url3, url4, url5]
 
-
     useEffect(() => {
         let errors = [];
         if (!country.length) errors.push("Country is required");

@@ -86,7 +86,9 @@ export const addImage = (url) => ({
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(eachImage)
                 })
+                //
                 const eachPhoto = await response1.json()
+                //
                 array.push(eachPhoto)
             })
         }
