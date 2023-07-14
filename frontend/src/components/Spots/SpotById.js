@@ -57,7 +57,7 @@ const SpotById = () => {
         if(numString === "12") return "December"
     }
 
-    if (!loaded) {
+    if (!loaded && !spot.SpotImages) {
         return (
           <Load />
         )
