@@ -71,30 +71,44 @@ export const addImage = (url) => ({
         return spots
     }
 
-    export const createSpot = (spot) => async (dispatch) => {
+    export const createSpot = (spot, urls) => async (dispatch) => {
         const response = await csrfFetch('/api/spots', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(spot)
         })
         const aSpot = await response.json()
+        // let array = []
+        // if(spot.SpotImages) {
+        //     spot.SpotImages.forEach(async (eachImage) => {
+        //         const response1 = await csrfFetch(`/api/spots/${aSpot.id}/images`, {
+        //             method: 'POST',
+        //             headers: { 'Content-Type': 'application/json' },
+        //             body: JSON.stringify(eachImage)
+        //         })
+        //         //
+        //         const eachPhoto = await response1.json()
+        //         //
+        //         array.push(eachPhoto)
+        //     })
+        // }
+
         let array = []
-        if(spot.SpotImages) {
-            spot.SpotImages.forEach(async (eachImage) => {
+
+        urls.forEach(async (eachImage) => {
+            if(eachImage.url.length > 0) {
                 const response1 = await csrfFetch(`/api/spots/${aSpot.id}/images`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(eachImage)
                 })
-                //
                 const eachPhoto = await response1.json()
-                //
                 array.push(eachPhoto)
+            }
             })
-        }
-
         if(response.ok) {
             await dispatch(addSpot(aSpot, array))
+            await dispatch(getSpot(aSpot.id))
             return aSpot
         }
     }
