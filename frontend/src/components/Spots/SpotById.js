@@ -77,11 +77,11 @@ const SpotById = () => {
             <h2>{spot.name}</h2>
             <h4>{spot.city}, {spot.state}, {spot.country}</h4>
             <div className='grid'>
-            <img className='main' src={spot.SpotImages ? spot.SpotImages[0].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
-            <img className='photoone' src={spot.SpotImages.length > 1 ? spot.SpotImages[1].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
-            <img className='phototwo' src={spot.SpotImages.length > 1 ? spot.SpotImages[2].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
-            <img className='photothree' src={spot.SpotImages.length > 1 ? spot.SpotImages[3].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
-            <img className='photofour' src={spot.SpotImages.length > 1 ? spot.SpotImages[4].url : 'https://geekflare.com/wp-content/uploads/2023/03/img-placeholder.png'}/>
+            <img className='main' src={spot.SpotImages[0].url.length ? spot.SpotImages[0].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
+            <img className='photoone' src={spot.SpotImages[1].url.length ? spot.SpotImages[1].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
+            <img className='phototwo' src={spot.SpotImages[2].url.length ? spot.SpotImages[2].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
+            <img className='photothree' src={spot.SpotImages[3].url.length ? spot.SpotImages[3].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
+            <img className='photofour' src={spot.SpotImages[4].url.length ? spot.SpotImages[4].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
             </div>
             <div className='middle-section-spot-id'>
                 <div className='left-side-spot-id'>
@@ -94,11 +94,13 @@ const SpotById = () => {
                         <div>⭐{Object.values(theReviews).length > 0 ? (Object.values(theReviews).reduce((acc, review) => acc + review.stars, 0) / Object.values(theReviews).length).toFixed(1) : <>New</>} {!Object.values(theReviews).length ? null : Object.values(theReviews) && (Object.values(theReviews).length === 1) ? <>• {Object.values(theReviews).length} review</> : <>• {Object.values(theReviews).length} reviews</>}</div>
                     </div>
                     <div className='reserve-button'>
+                    {sessionUser ?
                     <OpenModalMenuItem
                         className='make-reserve-button'
                         itemText="Reserve"
                         modalComponent={<CreateBooking spot={spot} key={spot.id}/>}
                     />
+                    : <div className='noUserReserve'>Please log in to Make A Booking</div> }
                     </div>
                 </div>
             </div>
