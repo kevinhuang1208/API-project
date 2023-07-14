@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { addImage, changeSpot, createSpot, editSpot } from '../../store/spots';
+import { getSpot } from '../../store/spots';
 import './SpotForm.css'
 
 const SpotForm = ({ formType }) => {
@@ -70,6 +71,7 @@ const SpotForm = ({ formType }) => {
         }
 
         const spot = await dispatch(createSpot(newSpot, urls))
+        await dispatch(getSpot(spot.id))
         if(spot.id) {
             setCountry("")
             setAddress("")
