@@ -1,7 +1,9 @@
 .grid {
     display: grid;
     max-height: 420px;
-    grid-template-columns: 25% 25% 25% 25%;
+    width: 100%;
+    justify-content: center;
+    grid-template-columns: 20% 20% 20% 20%;
     grid-template-rows: 50% 50%;
     grid-template-areas:
     "main main one two"
@@ -32,7 +34,7 @@
     height: 100%;
 }
 
-.grid > .photofour {
+.grid  > .photofour {
     grid-area: four;
     width: 100%;
     height: 100%;
@@ -80,6 +82,10 @@ h2 {
     font-weight: bold;
 }
 
+.noUserReserve {
+    color:#FF385C;
+    font-weight: bold;
+}
 
 .top-right-side-spot-id > div {
     font-size: 16px;

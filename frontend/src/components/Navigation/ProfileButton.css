@@ -40,3 +40,8 @@ ul > li > .manage-spots, ul > li > .manage-bookings {
   width: 30px;
   border-radius: 25px;
 }
+
+/* .dropDownNoUser > li {
+    list-style: none;
+    cursor: pointer;
+} */

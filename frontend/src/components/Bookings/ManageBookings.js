@@ -18,7 +18,6 @@ const ManageBookings = () => {
 
     const bookings = Object.values(allUserBookings)
 
-    console.log("THIS IS ALL USER BOOKINGS ON PAGE", bookings)
     useEffect(() => {
         dispatch(getUserBookingsThunk()).then(() => setLoaded(true))
     }, [])

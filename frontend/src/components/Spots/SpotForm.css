@@ -31,13 +31,21 @@ textarea {
    padding-top: 10px;
 }
 
-.submit-form > button {
+.submit-form > button:enabled {
     background-color: #FF385C;
     padding: 10px;
     border-radius: 10px;
     color: white;
     border: none;
     cursor: pointer;
+}
+
+.submit-form > button:disabled {
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    border: none;
 }
 
 .errors {
