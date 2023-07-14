@@ -77,11 +77,11 @@ const SpotById = () => {
             <h2>{spot.name}</h2>
             <h4>{spot.city}, {spot.state}, {spot.country}</h4>
             <div className='grid'>
-            <img className='main' src={spot.SpotImages[0].url.length ? spot.SpotImages[0].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
-            <img className='photoone' src={spot.SpotImages[1].url.length ? spot.SpotImages[1].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
-            <img className='phototwo' src={spot.SpotImages[2].url.length ? spot.SpotImages[2].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
-            <img className='photothree' src={spot.SpotImages[3].url.length ? spot.SpotImages[3].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
-            <img className='photofour' src={spot.SpotImages[4].url.length ? spot.SpotImages[4].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
+            <img className='main' src={spot.SpotImages && spot.SpotImages[0]?.url.length ? spot.SpotImages[0].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
+            <img className='photoone' src={spot.SpotImages && spot.SpotImages[1]?.url.length ? spot.SpotImages[1].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
+            <img className='phototwo' src={spot.SpotImages && spot.SpotImages[2]?.url.length ? spot.SpotImages[2].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
+            <img className='photothree' src={spot.SpotImages && spot.SpotImages[3]?.url.length ? spot.SpotImages[3].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
+            <img className='photofour' src={spot.SpotImages && spot.SpotImages[4]?.url.length ? spot.SpotImages[4].url : 'https://cdn.discordapp.com/attachments/1117948168353628201/1129506444752994384/gray-sofa-white-living-room-interior-with-copy-space-3d-rendering.jpg'}/>
             </div>
             <div className='middle-section-spot-id'>
                 <div className='left-side-spot-id'>
