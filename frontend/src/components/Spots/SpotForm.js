@@ -71,7 +71,6 @@ const SpotForm = ({ formType }) => {
         }
 
         const spot = await dispatch(createSpot(newSpot, urls))
-        await dispatch(getSpot(spot.id))
         if(spot.id) {
             setCountry("")
             setAddress("")
