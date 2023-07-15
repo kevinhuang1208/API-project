@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import "./SpotsAll.css"
 
 const SpotEach = ({spot}) => {
-
+    
 
     return (
         <div className="div-contents-flex">

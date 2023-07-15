@@ -11,7 +11,6 @@ const SpotsAll = () => {
     const [loaded, setLoaded] = useState(false)
     const allSpots = useSelector(state=>state.spots.allSpots)
     const spots = Object.values(allSpots)
-
     useEffect(() => {
         dispatch(getAllSpots()).then(() => setLoaded(true))
         return () => {
